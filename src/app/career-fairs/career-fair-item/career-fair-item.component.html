@@ -1,0 +1,20 @@
+<div class="card text-white bg-info mb-3">
+    <div (click)="onLoadCompanies()" class="card-header" id="cardHeader">
+        <a routerLinkActive="router-link-active" >
+            {{ careerfair.name }}
+        </a>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li>
+          <h5 class="card-title">Time</h5>
+          <p class="card-text">{{ careerfair.time }}</p>
+          <hr>
+        </li>
+        <li>
+            <h5 class="card-title">Location</h5>
+            <p class="card-text">{{ careerfair.address }}</p>
+          </li>
+      </ul>
+    </div>
+</div>

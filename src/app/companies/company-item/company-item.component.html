@@ -1,0 +1,22 @@
+<div class="card text-white bg-primary mb-3">
+    <div class="card-header" (click)="onShowCompanyDetail()">
+      <h2>
+          {{ company.name }} in {{ careerfairName }}
+      </h2>
+    </div>
+    <div class="card-body">
+      <ul class="list-group list-group-flush">
+        <li>
+          <h5 class="card-title">Time</h5>
+          <p class="card-text">{{ companyInCf.time }}}</p>
+          <hr>
+        </li>
+        <li>
+            <h5 class="card-title">Location</h5>
+            <p class="card-text">{{ companyInCf.location }}</p>
+        </li>
+      </ul>
+    </div>
+    <button class="btn">add to favorate</button>
+</div>
+

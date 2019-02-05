@@ -1,0 +1,16 @@
+#searchForm {
+  text-align: center;
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+}
+
+label {
+  font-size: 3rem;
+  font-family: fantasy;
+}
+
+button {
+  margin-top: 1rem;
+}

@@ -1,0 +1,141 @@
+<!-- <h1>Sign Up</h1>
+<form id="signupForm" (ngSubmit)="onSignUp(f)" #f="ngForm">
+  <div id="inputs">
+    <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email" ngModel>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="confirmPassword" class="col-sm-2 col-form-label">Confirm Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" ngModel>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-2 col-form-label" for="schoolName">School</label>
+        <div class="col-sm-10">
+          <input type="text" class=form-control id="schoolName" name="schoolName" placeholder="School Name" ngModel>
+        </div>
+      </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Sign Up</button>
+</form> -->
+
+<form (ngSubmit)="onSignUp(f)" #f="ngForm">
+  <mat-card>
+    <h1>Sign Up Your Account</h1>
+    <div id="forms">
+      <mat-form-field>
+        <input
+          matInput
+          email
+          type="text"
+          name="email"
+          ngModel
+          required
+          placeholder="Email"
+          #email="ngModel">
+      </mat-form-field>
+      <mat-error *ngIf="email.dirty && email.invalid">Please enter a valid email.</mat-error>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          name="password"
+          ngModel
+          required
+          placeholder="Password"
+          minlength="6"
+          #password="ngModel">
+      </mat-form-field>
+      <mat-error *ngIf="password.hasError('minlength')">password should be at laest 6 characters</mat-error>
+      <mat-error *ngIf="password.touched && password.hasError('required')">please input a password longer than 6 characters</mat-error>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          name="confirmPassword"
+          ngModel
+          required
+          placeholder="Confirm Password"
+          minlength="6"
+          #confirmPassword="ngModel">
+      </mat-form-field>
+      <mat-error *ngIf="confirmPassword.touched && confirmPassword.value !== password.value">password does not match</mat-error>
+      <table>
+        <tr>
+          <td>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                name="firstName"
+                ngModel
+                required
+                placeholder="First name"
+                #firstName="ngModel">
+            </mat-form-field>
+          </td>
+          <td>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                name="lastName"
+                ngModel
+                required
+                placeholder="Last name"
+                #lastName="ngModel">
+            </mat-form-field>
+          </td>
+        </tr>
+          <mat-error *ngIf="(firstName.touched && firstName.invalid) || (lastName.touched && lastName.invalid)">please enter your first name and last name</mat-error>
+      </table>
+      <mat-form-field>
+        <span matPrefix>+1 &nbsp;</span>
+        <input
+          type="tel"
+          matInput
+          name="phone"
+          required
+          ngModel
+          placeholder="Telephone"
+          #phone="ngModel">
+      </mat-form-field>
+      <mat-radio-group ngModel #type="ngModel" required name="type" matInput>
+          <p>Are you signing up as a student or for a school?</p>
+          <mat-radio-button value="student">Student</mat-radio-button>
+          <mat-radio-button value="school">School</mat-radio-button>
+      </mat-radio-group>
+      <mat-form-field *ngIf="type.value === 'school'">
+        <input
+          matInput
+          type="text"
+          name="schoolName"
+          ngModel
+          required
+          placeholder="School name"
+          #schoolName="ngModel">
+      </mat-form-field>
+      <mat-form-field *ngIf="type.value==='student'">
+        <mat-select
+          placeholder="Select your school"
+          name="schoolSelected"
+          ngModel
+          required
+          #schoolSelected="ngModel">
+          <mat-option *ngFor="let school of schools" [value]="school">{{ school }}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <button mat-raised-button color="primary" [disabled]="!f.valid" type="submit">Sign Up</button>
+  </mat-card>
+</form>

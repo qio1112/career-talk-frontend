@@ -1,0 +1,59 @@
+<!-- <h1>Login</h1>
+<form id="loginForm" (ngSubmit)="onLogin(f)" #f="ngForm">
+  <div id="inputs">
+    <div class="form-group row">
+        <label for="email" class="col-sm-2 col-form-label">Email</label>
+        <div class="col-sm-10">
+          <input type="email" class="form-control" id="email" name="email" placeholder="Email" ngModel #email>
+
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="password" class="col-sm-2 col-form-label">Password</label>
+        <div class="col-sm-10">
+          <input type="password" class="form-control" id="password" name="password" placeholder="Password" ngModel>
+        </div>
+      </div>
+  </div>
+  <div id="buttons">
+    <button type="submit" class="btn btn-primary">Login</button>
+    <a (onclick)="onForgetPassword()" class="btn"><u>Forget your password?</u></a>
+  </div>
+</form> -->
+<form (ngSubmit)="onLogin(f)" #f="ngForm">
+  <mat-card>
+    <h2>Login Your Account</h2>
+    <div>
+      <mat-form-field>
+        <input
+          matInput
+          email
+          type="text"
+          name="email"
+          ngModel
+          required
+          placeholder="Email"
+          #email="ngModel">
+      </mat-form-field>
+      <mat-error *ngIf="email.dirty && email.invalid">Please enter a valid email.</mat-error>
+    </div>
+    <div>
+      <mat-form-field>
+        <input
+          matInput
+          type="password"
+          name="password"
+          ngModel
+          required
+          placeholder="Password"
+          #password="ngModel">
+      </mat-form-field>
+      <mat-error *ngIf="password.dirty && password.invalid">Please enter a valid password.</mat-error>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" [disabled]="!f.valid" type="submit">Login</button>
+      <a (onclick)="onForgetPassword()" class="btn"><u>Forget your password?</u></a>
+    </div>
+  </mat-card>
+</form>
+

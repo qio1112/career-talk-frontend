@@ -1,0 +1,49 @@
+/* #signupForm {
+  max-width: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+#inputs {
+  text-align: left;
+}
+*/
+
+h2 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+mat-card {
+  width: 80%;
+  margin: auto;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+textarea {
+  width: 100%
+}
+
+input {
+   width: 120%
+}
+
+mat-error {
+  font-size: 0.6rem;
+}
+
+#forms {
+  width: 60%;
+  margin: auto;
+  text-align: left;
+  padding-left: auto;
+}
+
+mat-radio-button {
+  margin-right: 5%;
+}
+
