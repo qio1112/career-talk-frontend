@@ -1,3 +1,19 @@
 <br>
 <h1>Welcome to the Career Talk!</h1>
-<p>This is the home page, and there is nothing here.</p>
+<form  *ngIf="!hasSchool" (ngSubmit)="onSelectSchool(f)" #f="ngForm">
+  <h4>Select your school</h4>
+  <mat-form-field>
+    <mat-select
+      placeholder="Select School"
+      name="selectedSchool"
+      ngModel
+      required
+      #selectedSchool="ngModel">
+      <mat-option *ngFor="let school of schools" [value]="school._id">
+        {{ school.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button type="submit" mat-raised-button color="primary" [disabled]="!f.valid">Submit</button>
+</form>
+<h4 *ngIf="hasSchool">See something at career fairs</h4>

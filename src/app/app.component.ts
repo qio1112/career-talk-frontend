@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from './services/auth.service';
+import { SchoolService } from './services/school.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -10,7 +12,7 @@ export class AppComponent implements OnInit {
   title = 'Career Talk';
 
   constructor(
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   ngOnInit() {

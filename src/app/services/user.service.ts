@@ -10,33 +10,30 @@ import { User } from '../common/user.model';
 @Injectable()
 export class UserService {
   private serverUrl: string = Urls.serverUrl;
-  private user: User;
 
   constructor(
     private authService: AuthService,
     private http: HttpClient
   ) { }
 
-  getUser() {
+  // get user info as a User object
+  // return Observable
+  fetchUserInfo() {
     if (!this.authService.getAuthStatus()) {
       return ;
     }
-    this.http.get<{
+    return this.http.get<{
       message: string,
       user: {
         userId: string,
-        firstname: string,
-        lastname: string,
+        firstName: string,
+        lastName: string,
         phone: string,
         schoolId: string,
         school: string,
         type: string
       }
-      }>(this.serverUrl + '/userinfo')
-      .subscribe(userInfo => {
-        this.user = userInfo.user;
-        return this.user;
-      });
+      }>(this.serverUrl + '/userinfo');
   }
 
 }

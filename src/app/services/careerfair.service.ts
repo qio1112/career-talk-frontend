@@ -1,63 +1,31 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { CareerFair } from '../common/careerfair.model';
-import { Company } from '../common/company.model';
+import { AuthService } from './auth.service';
+import { UserService } from './user.service';
+import { HttpClient } from '@angular/common/http';
+import { Urls } from '../common/urls';
 
 @Injectable()
 export class CareerfairService {
 
-  private careerfairs: CareerFair[] = [
-    new CareerFair(
-      '1',
-      'The First University',
-      'The first career fair',
-      '12:00-15:00',
-      '100 First Street',
-      'This is the first career fair for testing use. This is the description.',
-      [
-        {companyName: 'Company A', time: '12:00-13:00', location: 'Table 1'},
-        {companyName: 'Company B', time: '13:00-14:00', location: 'Table 2'},
-      ],
-    ),
-    new CareerFair(
-      '2',
-      'The First University',
-      'The second career fair',
-      '13:00-15:00',
-      '200 First Street',
-      'This is the second career fair for testing use. This is the description.',
-      [
-        {companyName: 'Company C', time: '12:00-13:00', location: 'Table 1'},
-        {companyName: 'Company B', time: '13:00-14:00', location: 'Table 2'},
-      ],
-    ),
-    new CareerFair(
-      '3',
-      'The Second University',
-      'The second career fair',
-      '11:00-14:00',
-      '200 First Street',
-      'This is the second career fair for testing use. This is the description.',
-      [
-        {companyName: 'Company C', time: '12:00-13:00', location: 'Table 1'},
-        {companyName: 'Company D', time: '13:00-14:00', location: 'Table 2'},
-      ],
-    )
-  ];
-  constructor() { }
+  private serverUrl = Urls.serverUrl;
+  private schoolName: string;
+  private schoolId: string;
 
-  getCareerfairs() {
-    return this.careerfairs.slice();
-  }
+  constructor(
+    private authService: AuthService,
+    private userService: UserService,
+    private http: HttpClient
+  ) { }
 
-  getCareerfairById(id: string) {
-    return this.careerfairs.slice().find(e => e.id === id);
-  }
-
-  getCareerfairByName(name: string) {
-    return this.careerfairs.slice().find(e => e.name === name || e.name.split(' ').join('') === name);
-  }
-
-  getCareerFairsBySchoolName(schoolName: string) {
-    return this.careerfairs.slice().filter(e => e.schoolName === schoolName);
+  // get all careerfairs according to the logged in user
+  fetchCareerfairs() {
+    if (!this.authService.getAuthStatus()) {
+      return ;
+    }
+    return this.http.get<{
+      message: string,
+      careerfairs: CareerFair[]
+    }>(this.serverUrl + '/careerfairs');
   }
 }

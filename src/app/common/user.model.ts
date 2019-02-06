@@ -1,16 +1,19 @@
+/**
+ * model of users
+ */
 export class User {
   userId: string;
-  firstname: string;
-  lastname: string;
+  firstName: string;
+  lastName: string;
   phone: string;
   schoolId: string;
   school: string;
   type: string;
 
-  constructor(userId: string, firstname: string, lastname: string, phone: string, schoolId: string, school: string, type: string) {
+  constructor(userId: string, firstName: string, lastName: string, phone: string, schoolId: string, school: string, type: string) {
     this.userId = userId;
-    this.firstname = firstname;
-    this.lastname = lastname;
+    this.firstName = firstName;
+    this.lastName = lastName;
     this.phone = phone;
     this.schoolId = schoolId;
     this.school = school;

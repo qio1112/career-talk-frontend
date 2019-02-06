@@ -10,13 +10,16 @@ import { CareerFair } from '../common/careerfair.model';
 export class CareerFairsComponent implements OnInit {
 
   careerfairs: CareerFair[];
-  private schoolName = 'The First University';
 
   constructor(
     private cfService: CareerfairService
   ) { }
 
   ngOnInit() {
-    this.careerfairs = this.cfService.getCareerFairsBySchoolName(this.schoolName);
+    this.cfService.fetchCareerfairs()
+      .subscribe(careerfairsInfo => {
+        this.careerfairs = careerfairsInfo.careerfairs;
+        console.log(this.careerfairs);
+      });
   }
 }

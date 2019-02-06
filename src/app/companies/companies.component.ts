@@ -24,7 +24,5 @@ export class CompaniesComponent implements OnInit {
 
   ngOnInit() {
     this.careerfairId = this.route.snapshot.params['careerfairId'];
-    this.careerfair = this.careerfairService.getCareerfairById(this.careerfairId);
-    this.companies = this.careerfairService.getCareerfairById(this.careerfairId).companies;
   }
 }

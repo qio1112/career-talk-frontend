@@ -3,31 +3,26 @@ import { Company } from './company.model';
  * model of career fairs
  */
 export class CareerFair {
-  public id: string;
-  public schoolName: string;
-  public name: string;
-  public time: string;
-  public address: string;
-  public description: string;
-  // companies is stored as the name of the company but not a company object
-  // to get more info about the company, use company service to search for the company.
-  public companies: {companyName: string, time: string, location: string}[];
+  _id: string;
+  name: string;
+  schoolId: string;
+  address: string;
+  description: string;
+  startTime: Date;
+  endTime: Date;
+  talkIds: string[];
+  companyIds: string[];
 
   constructor(
-      id: string,
-      schoolName: string,
+      _id: string,
       name: string,
-      time: string,
+      schoolId: string,
       address: string,
       description: string,
-      companies: {companyName: string, time: string, location: string}[]
+      startTime: Date,
+      endTime: Date,
+      talkIds: string[],
+      companyIds: string[]
     ) {
-    this.id = id;
-    this.schoolName = schoolName;
-    this.name = name;
-    this.time = time;
-    this.address = address;
-    this.description = description;
-    this.companies = companies;
   }
 }

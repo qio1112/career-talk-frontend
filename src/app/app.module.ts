@@ -33,6 +33,7 @@ import { UserInfoEditComponent } from './users/user-info-edit/user-info-edit.com
 import { AuthInterceptor } from './services/auth-interceptor';
 import { Page404Component } from './page404/page404.component';
 import { UserService } from './services/user.service';
+import { SchoolService } from './services/school.service';
 
 
 
@@ -73,6 +74,7 @@ import { UserService } from './services/user.service';
     CompanyService,
     UserService,
     AuthService,
+    SchoolService,
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
   ],
   bootstrap: [AppComponent]

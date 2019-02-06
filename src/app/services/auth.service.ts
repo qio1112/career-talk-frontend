@@ -92,7 +92,6 @@ export class AuthService {
     const now = new Date();
     const expiresIn = authToken.expiration.getTime() - now.getTime();
     if (expiresIn > 0) {
-      console.log('token is here!' + expiresIn);
       this.expiresIn = expiresIn;
       this.setTokenTimer(this.expiresIn);
       this.token = authToken.token;
@@ -128,7 +127,6 @@ export class AuthService {
     if (!token || !expiration || !userId) {
       return ;
     }
-    console.log(token);
     return { token: token, expiration: new Date(expiration), userId: userId };
   }
 }
