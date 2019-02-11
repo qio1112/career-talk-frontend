@@ -2,30 +2,48 @@ import { Injectable } from '@angular/core';
 import { Company } from '../common/company.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
+import { Urls } from '../common/urls';
+import { CareerFair } from '../common/careerfair.model';
+import { Talk } from '../common/talk.model';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class CompanyService {
 
-  private companies = [
-    new Company('1', 'Company A', '1 First Street', 'companyA@test.com', 'This is the first company.', 'firstcompany.com', '', ''),
-    new Company('1', 'Company B', '2 First Street', 'companyB@test.com', 'This is the second company.', 'secondcompany.com', '', ''),
-    new Company('1', 'Company C', '3 First Street', 'companyC@test.com', 'This is the third company.', 'thirdcompany.com', '', ''),
-    new Company('1', 'Company D', '4 First Street', 'companyD@test.com', 'This is the fourth company.', 'fourthcompany.com', '', '')
-  ];
+  private serverUrl = Urls.serverUrl;
+  private companies: Company[];
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) { }
 
-  getCompanyByName(name: string) {
-    return this.companies.find(e => e.name === name);
+  // get the companies stored
+  getCompanies() {
+    return this.companies;
   }
 
-  getCompanies() { }
+  // get companies in the certain career fair
+  findCompaniesByCareerfairId(cfId: string) {
+    return this.http.get<{
+        message: string,
+        companies: Company[],
+        careerfair: CareerFair
+      }>(this.serverUrl + '/careerfairs/' + cfId + '/companies')
+      .pipe(
+        map(companiesInfo => {
+          this.companies = companiesInfo.companies;
+          return companiesInfo;
+        })
+      );
+  }
 
-  getCompanyById() { }
-
-  getTalks() { }
+  // find all talks according to the career fair id and company id
+  findTalks(cfId: string, companyId: string) {
+    return this.http.get<{
+      message: string,
+      talks: Talk[]
+    }>(this.serverUrl + '/careerfairs/' + cfId + '/companies/' + companyId + '/talks');
+  }
 
 }

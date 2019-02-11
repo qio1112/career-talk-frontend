@@ -1,0 +1,15 @@
+<!-- <mat-list>
+  <mat-list-item *ngFor="let talk of talks">
+      <app-talk-item
+      [talk]="talk"
+    ></app-talk-item>
+  </mat-list-item>
+</mat-list> -->
+
+
+<div>
+    <app-talk-item
+    *ngFor="let talk of talks"
+    [talk]="talk"
+  ></app-talk-item>
+</div>

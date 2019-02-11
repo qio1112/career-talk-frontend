@@ -17,6 +17,6 @@ export class CareerFairItemComponent implements OnInit {
 
   onLoadCompanies() {
     const careerfairId = this.careerfair._id;
-    this.router.navigate(['/' + careerfairId, 'companies']);
+    this.router.navigate(['/careerfairs', careerfairId, 'companies']);
   }
 }

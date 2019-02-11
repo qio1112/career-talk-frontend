@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from '../services/company.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CareerfairService } from '../services/careerfair.service';
+import { Company } from '../common/company.model';
 import { CareerFair } from '../common/careerfair.model';
 
 @Component({
@@ -11,18 +11,22 @@ import { CareerFair } from '../common/careerfair.model';
 })
 export class CompaniesComponent implements OnInit {
 
-  careerfairId: string;
+  private careerfairId: string;
+  companies: Company[];
   careerfair: CareerFair;
-  companies: {companyName: string, time: string, location: string}[];
 
   constructor(
     private companyService: CompanyService,
-    private careerfairService: CareerfairService,
-    private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
+    // find companies in the careerfair
     this.careerfairId = this.route.snapshot.params['careerfairId'];
+    this.companyService.findCompaniesByCareerfairId(this.careerfairId)
+      .subscribe(companiesInfo => {
+        this.companies = companiesInfo.companies;
+        this.careerfair = companiesInfo.careerfair;
+      });
   }
 }

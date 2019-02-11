@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
+import { SchoolService } from 'src/app/services/school.service';
+import { School } from 'src/app/common/school.model';
 
 @Component({
   selector: 'app-signup',
@@ -8,13 +10,19 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
-  public schools = ['University A', 'University B'];
+  public schools: School[];
 
   constructor(
     private authService: AuthService,
+    private schoolService: SchoolService
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.schoolService.getAllSchools()
+      .subscribe(schoolsInfo => {
+        this.schools = schoolsInfo.schools;
+      });
+  }
 
   onSignUp(form: NgForm) {
     if (form.invalid) {
@@ -26,7 +34,8 @@ export class SignupComponent implements OnInit {
       form.value.firstName,
       form.value.lastName,
       form.value.phone,
-      form.value.type
+      form.value.type,
+      form.value.selectedSchoolId
     );
   }
 }

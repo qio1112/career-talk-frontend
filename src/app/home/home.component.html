@@ -1,19 +1,11 @@
 <br>
-<h1>Welcome to the Career Talk!</h1>
-<form  *ngIf="!hasSchool" (ngSubmit)="onSelectSchool(f)" #f="ngForm">
-  <h4>Select your school</h4>
-  <mat-form-field>
-    <mat-select
-      placeholder="Select School"
-      name="selectedSchool"
-      ngModel
-      required
-      #selectedSchool="ngModel">
-      <mat-option *ngFor="let school of schools" [value]="school._id">
-        {{ school.name }}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-  <button type="submit" mat-raised-button color="primary" [disabled]="!f.valid">Submit</button>
-</form>
-<h4 *ngIf="hasSchool">See something at career fairs</h4>
+<h1>Welcome to Career Talk!</h1>
+<div *ngIf="!isAuthenticated">
+  <h4>Login to see more information</h4>
+  <app-login></app-login>
+  <p>Don't have an account? <a routerLink="/signup">Sign Up</a></p>
+</div>
+<div *ngIf="isAuthenticated && user?.type === 'student'">
+  <h4>Your school is {{ user.school }}</h4>
+  <h4>You are a student.</h4>
+</div>

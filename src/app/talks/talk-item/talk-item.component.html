@@ -1,0 +1,9 @@
+<div>
+  <hr>
+  <p>Start Time: {{ talk.startTime }}</p>
+  <p>End Time: {{ talk.endTime }}</p>
+  <button mat-raised-button color="disabled" disabled *ngIf="!isScheduledByMe && isScheduled">Scheduled</button>
+  <button mat-raised-button color="warn" *ngIf="isScheduledByMe"  (click)="onUnscheduleTalk()">Unschedule</button>
+  <button mat-raised-button color="primary" *ngIf="!isScheduled" (click)="onScheduleTalk()">Schedule</button>
+  <hr>
+</div>

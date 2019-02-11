@@ -36,7 +36,15 @@ export class AuthService {
   }
 
   // POST request to server to create new user
-  createUser(email: string, password: string, firstName: string, lastName: string, phone: string, type: string) {
+  createUser(
+    email: string,
+    password: string,
+    firstName: string,
+    lastName: string,
+    phone: string,
+    type: string,
+    schoolId: string
+  ) {
     this.http.post<{message: string, result: string}>(this.homeUrl + '/signup',
       {
         email: email,
@@ -44,7 +52,8 @@ export class AuthService {
         firstname: firstName,
         lastname: lastName,
         phone: phone,
-        type: type
+        type: type,
+        schoolId: schoolId
       })
       .subscribe(res => {
         console.log(res);
@@ -85,16 +94,17 @@ export class AuthService {
 
   // login autometically if there is valid token in local storage
   autoLogin() {
-    const authToken = this.getTokenFromLocalStorage();
-    if (!authToken) {
+    const authTokenInfo = this.getTokenFromLocalStorage();
+    if (!authTokenInfo) {
       return ;
     }
     const now = new Date();
-    const expiresIn = authToken.expiration.getTime() - now.getTime();
+    const expiresIn = authTokenInfo.expiration.getTime() - now.getTime();
     if (expiresIn > 0) {
       this.expiresIn = expiresIn;
       this.setTokenTimer(this.expiresIn);
-      this.token = authToken.token;
+      this.token = authTokenInfo.token;
+      this.userId = authTokenInfo.userId;
       this.isAuthenticated = true;
       this.authStatusListener.next(true);
     }

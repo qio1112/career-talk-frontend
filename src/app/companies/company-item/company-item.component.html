@@ -1,22 +1,20 @@
-<div class="card text-white bg-primary mb-3">
-    <div class="card-header" (click)="onShowCompanyDetail()">
-      <h2>
-          {{ company.name }} in {{ careerfairName }}
-      </h2>
-    </div>
-    <div class="card-body">
-      <ul class="list-group list-group-flush">
-        <li>
-          <h5 class="card-title">Time</h5>
-          <p class="card-text">{{ companyInCf.time }}}</p>
-          <hr>
-        </li>
-        <li>
-            <h5 class="card-title">Location</h5>
-            <p class="card-text">{{ companyInCf.location }}</p>
-        </li>
-      </ul>
-    </div>
-    <button class="btn">add to favorate</button>
-</div>
-
+<mat-accordion>
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>{{ company.name }}</mat-panel-title>
+      <mat-panel-description>Location: {{ locationInCareerfair }}</mat-panel-description>
+    </mat-expansion-panel-header>
+    <mat-tab-group>
+      <mat-tab label="introduction">
+        <strong>Introduction: </strong>
+        <p>Address: {{ company.address }}</p>
+        <p>{{ company.description }}</p>
+        <p>E-mail: {{ company.email }}</p>
+        <p><a href="{{ company.website }}">Click for more information</a></p>
+      </mat-tab>
+      <mat-tab label="talks">
+        <app-talks [talks]="talks"></app-talks>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-expansion-panel>
+</mat-accordion>

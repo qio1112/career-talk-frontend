@@ -11,7 +11,10 @@ import { MatInputModule,
          MatRadioModule,
          MatSelectModule,
          MatToolbarModule,
-         MatProgressSpinnerModule } from '@angular/material';
+         MatProgressSpinnerModule,
+         MatExpansionModule,
+         MatTabsModule,
+         MatListModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -20,7 +23,6 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { SearchComponent } from './search/search.component';
 import { CareerFairItemComponent } from './career-fairs/career-fair-item/career-fair-item.component';
 import { CompanyItemComponent } from './companies/company-item/company-item.component';
-import { CompanyDetailComponent } from './companies/company-detail/company-detail.component';
 import { HomeComponent } from './home/home.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { CareerFairsComponent } from './career-fairs/career-fairs.component';
@@ -34,6 +36,8 @@ import { AuthInterceptor } from './services/auth-interceptor';
 import { Page404Component } from './page404/page404.component';
 import { UserService } from './services/user.service';
 import { SchoolService } from './services/school.service';
+import { TalksComponent } from './talks/talks.component';
+import { TalkItemComponent } from './talks/talk-item/talk-item.component';
 
 
 
@@ -46,13 +50,14 @@ import { SchoolService } from './services/school.service';
     SearchComponent,
     CareerFairItemComponent,
     CompanyItemComponent,
-    CompanyDetailComponent,
     HomeComponent,
     CompaniesComponent,
     CareerFairsComponent,
     UserInfoComponent,
     UserInfoEditComponent,
     Page404Component,
+    TalksComponent,
+    TalkItemComponent,
   ],
   imports: [
     BrowserModule,
@@ -67,7 +72,10 @@ import { SchoolService } from './services/school.service';
     MatRadioModule,
     MatSelectModule,
     MatToolbarModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatExpansionModule,
+    MatTabsModule,
+    MatListModule
   ],
   providers: [
     CareerfairService,

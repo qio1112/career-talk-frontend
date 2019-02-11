@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { CareerFair } from '../common/careerfair.model';
 import { AuthService } from './auth.service';
 import { UserService } from './user.service';
@@ -9,17 +9,14 @@ import { Urls } from '../common/urls';
 export class CareerfairService {
 
   private serverUrl = Urls.serverUrl;
-  private schoolName: string;
-  private schoolId: string;
 
   constructor(
     private authService: AuthService,
-    private userService: UserService,
     private http: HttpClient
   ) { }
 
   // get all careerfairs according to the logged in user
-  fetchCareerfairs() {
+  findCareerfairs() {
     if (!this.authService.getAuthStatus()) {
       return ;
     }

@@ -16,10 +16,10 @@ export class CareerFairsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.cfService.fetchCareerfairs()
+    // find all career fairs while loading
+    this.cfService.findCareerfairs()
       .subscribe(careerfairsInfo => {
         this.careerfairs = careerfairsInfo.careerfairs;
-        console.log(this.careerfairs);
       });
   }
 }

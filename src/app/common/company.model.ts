@@ -2,7 +2,7 @@
  * model of companies
  */
 export class Company {
-  id: string;
+  _id: string;
   name: string;
   address: string; // address of the company, not the location in any career fairs
   email:  string;
@@ -11,8 +11,8 @@ export class Company {
   website: string;
   others: {};
 
-  constructor(id: string, name: string, address: string, email: string, description: string, website: string, imagePath: string, others) {
-    this.id = id;
+  constructor(_id: string, name: string, address: string, email: string, description: string, website: string, imagePath: string, others) {
+    this._id = _id;
     this.name = name;
     this.description = description;
     this.address = address;

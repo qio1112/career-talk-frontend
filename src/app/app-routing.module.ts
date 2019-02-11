@@ -6,7 +6,6 @@ import { SearchComponent } from './search/search.component';
 import { HomeComponent } from './home/home.component';
 import { CareerFairsComponent } from './career-fairs/career-fairs.component';
 import { CompaniesComponent } from './companies/companies.component';
-import { CompanyDetailComponent } from './companies/company-detail/company-detail.component';
 import { Page404Component } from './page404/page404.component';
 import { AuthGuard } from './services/auth.guard';
 
@@ -16,8 +15,7 @@ const appRoutes: Routes = [
   { path: 'signup', component: SignupComponent },
   { path: 'search', component: SearchComponent },
   { path: 'careerfairs', component: CareerFairsComponent, canActivate: [AuthGuard]},
-  { path: ':careerfairId/companies', component: CompaniesComponent, canActivate: [AuthGuard]},
-  { path: ':careerfairId/:companyId', component: CompanyDetailComponent, canActivate: [AuthGuard]},
+  { path: 'careerfairs/:careerfairId/companies', component: CompaniesComponent, canActivate: [AuthGuard]},
   { path: '404', component: Page404Component },
   { path: '**', redirectTo: '404' }
 ];
