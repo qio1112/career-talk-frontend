@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Urls } from '../common/urls';
+import { UserService } from './user.service';
 
 @Injectable()
 export class AuthService {

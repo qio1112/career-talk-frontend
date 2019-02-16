@@ -3,6 +3,7 @@
  */
 export class User {
   userId: string;
+  email: string;
   firstName: string;
   lastName: string;
   phone: string;
@@ -10,8 +11,16 @@ export class User {
   school: string;
   type: string;
 
-  constructor(userId: string, firstName: string, lastName: string, phone: string, schoolId: string, school: string, type: string) {
+  constructor(userId: string,
+      email: string,
+      firstName: string,
+      lastName: string,
+      phone: string,
+      schoolId: string,
+      school: string,
+      type: string) {
     this.userId = userId;
+    this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
     this.phone = phone;

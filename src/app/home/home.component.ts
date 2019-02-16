@@ -7,6 +7,7 @@ import { UserService } from '../services/user.service';
 import { NgForm } from '@angular/forms';
 import { User } from '../common/user.model';
 import { Router } from '@angular/router';
+import { flatMap, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -16,7 +17,7 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit, OnDestroy {
   private authListenerSubscription: Subscription;
   isAuthenticated = false;
-  user: User;
+  user = <User>{};
 
   constructor(
     private authService: AuthService,
@@ -29,15 +30,13 @@ export class HomeComponent implements OnInit, OnDestroy {
     // get the initial auth status
     this.isAuthenticated = this.authService.getAuthStatus();
     if (this.isAuthenticated) {
-      this.userService.fetchUserInfo()
-        .subscribe(userInfo => {
-          this.user = userInfo.user;
-        });
+      this.fetchUserInfo();
     }
     this.authListenerSubscription = this.authService
       .getAuthStatusListener()
       .subscribe(authStatus => {
         this.isAuthenticated = authStatus;
+        this.fetchUserInfo();
       });
   }
 
@@ -49,6 +48,16 @@ export class HomeComponent implements OnInit, OnDestroy {
     const schoolId = form.value.selectedSchool;
     if (!this.authService.getAuthStatus()) {
       this.router.navigate(['/signup']);
+    }
+  }
+
+  // get user info and save it
+  private fetchUserInfo() {
+    if (this.isAuthenticated) {
+      this.userService.fetchUserInfo()
+          .subscribe(userInfo => {
+            this.user = userInfo.user;
+        });
     }
   }
 

@@ -1,3 +1,25 @@
-<p>
-  user-info works!
-</p>
+<h3>Your Account</h3>
+<mat-list>
+  <button mat-raised-button color="primary" [routerLink]="'/userinfo/edit'">Edit Your Account</button>
+  <mat-list-item>
+      Email: {{ user.email }}
+  </mat-list-item>
+  <mat-list-item>
+      First Name: {{ user.firstName }}
+  </mat-list-item>
+  <mat-list-item>
+      Last Name: {{ user.lastName }}
+  </mat-list-item>
+  <mat-list-item>
+      School: {{ user.school }}
+  </mat-list-item>
+  <mat-list-item>
+      Phone: {{ user.phone }}
+  </mat-list-item>
+  <p>This is a {{ user.type }} account.</p>
+</mat-list>
+<mat-divider></mat-divider>
+<h4>Your Talks</h4>
+<app-talks [talks]="scheduledTalks" [isUserInfo]="true"></app-talks>
+<p *ngIf="numberOfScheduledTalks === 0">You haven't scheduled any talks yet.</p>
+

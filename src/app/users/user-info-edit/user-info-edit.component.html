@@ -1,3 +1,63 @@
-<p>
-  user-info-edit works!
-</p>
+<form (ngSubmit)="onEditUserInfo(f)" #f="ngForm">
+    <mat-card>
+      <h1>Edit Account Information</h1>
+      <div id="forms">
+        <table>
+          <tr>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  name="firstName"
+                  ngModel
+                  required
+                  placeholder="First name"
+                  [(ngModel)]="oldUser.firstName"
+                  #firstName="ngModel">
+              </mat-form-field>
+            </td>
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  name="lastName"
+                  ngModel
+                  required
+                  placeholder="Last name"
+                  [(ngModel)]="oldUser.lastName"
+                  #lastName="ngModel">
+              </mat-form-field>
+            </td>
+          </tr>
+            <mat-error *ngIf="(firstName.touched && firstName.invalid) || (lastName.touched && lastName.invalid)">please enter your first name and last name</mat-error>
+        </table>
+        <mat-form-field>
+          <span matPrefix>+1 &nbsp;</span>
+          <input
+            type="tel"
+            matInput
+            name="phone"
+            required
+            ngModel
+            placeholder="Telephone"
+            [(ngModel)]="oldUser.phone"
+            #phone="ngModel">
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select
+            placeholder="Select your school"
+            name="selectedSchoolId"
+            ngModel
+            required
+            [(ngModel)]="oldUser.schoolId"
+            #selectedSchoolId="ngModel">
+            <mat-option *ngFor="let school of schools" [value]="school._id">{{ school.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <button mat-raised-button color="primary" [disabled]="!f.valid" type="submit">Edit</button>
+    </mat-card>
+  </form>
+

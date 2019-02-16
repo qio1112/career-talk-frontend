@@ -12,8 +12,9 @@ import { Subscription } from 'rxjs';
 })
 export class TalkItemComponent implements OnInit, OnDestroy {
   @Input() talk: Talk;
+  @Input() isUserInfo: boolean;
   private userId: string;
-  isScheduledByMe = false;
+  isScheduledByMe = false; // if the talk is scheduled by the current user
   isScheduled = true;
   private talkStatusListenerSubscription: Subscription;
 
@@ -25,15 +26,17 @@ export class TalkItemComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userId = this.authService.getUserId();
     this.isScheduled = this.talk.scheduled;
-    // console.log(this.talk.scheduledBy);
+    // if is scheduled, check if talk is scheduled by the user
     if (this.isScheduled) {
       this.isScheduledByMe = this.userId === this.talk.scheduledBy;
     }
+    // listen to the subscription of talk status
     this.talkStatusListenerSubscription = this.userService.getTalkStatusListener()
       .subscribe(result => {
         if (result.talkId === this.talk._id) {
           this.isScheduledByMe = !this.isScheduledByMe;
           this.isScheduled = result.status;
+          this.talk.scheduled = result.status;
         }
       });
   }
@@ -42,6 +45,7 @@ export class TalkItemComponent implements OnInit, OnDestroy {
     this.talkStatusListenerSubscription.unsubscribe();
   }
 
+  // click the unschedule button, unschedule a talk
   onUnscheduleTalk() {
     this.userService.unscheduleTalk(this.talk)
       .subscribe(result => {
@@ -49,6 +53,7 @@ export class TalkItemComponent implements OnInit, OnDestroy {
       });
   }
 
+  // click schedule button, schedule a talk
   onScheduleTalk() {
     this.userService.scheduleTalk(this.talk)
       .subscribe(result => {

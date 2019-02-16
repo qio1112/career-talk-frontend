@@ -8,6 +8,8 @@ import { CareerFairsComponent } from './career-fairs/career-fairs.component';
 import { CompaniesComponent } from './companies/companies.component';
 import { Page404Component } from './page404/page404.component';
 import { AuthGuard } from './services/auth.guard';
+import { UserInfoComponent } from './users/user-info/user-info.component';
+import { UserInfoEditComponent } from './users/user-info-edit/user-info-edit.component';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent},
@@ -16,6 +18,8 @@ const appRoutes: Routes = [
   { path: 'search', component: SearchComponent },
   { path: 'careerfairs', component: CareerFairsComponent, canActivate: [AuthGuard]},
   { path: 'careerfairs/:careerfairId/companies', component: CompaniesComponent, canActivate: [AuthGuard]},
+  { path: 'userinfo', component: UserInfoComponent, canActivate: [AuthGuard]},
+  { path: 'userinfo/edit', component: UserInfoEditComponent, canActivate: [AuthGuard]},
   { path: '404', component: Page404Component },
   { path: '**', redirectTo: '404' }
 ];

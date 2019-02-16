@@ -1,15 +1,9 @@
-<!-- <mat-list>
-  <mat-list-item *ngFor="let talk of talks">
-      <app-talk-item
-      [talk]="talk"
-    ></app-talk-item>
-  </mat-list-item>
-</mat-list> -->
-
-
 <div>
+  <ng-container *ngFor="let talk of talks">
     <app-talk-item
-    *ngFor="let talk of talks"
-    [talk]="talk"
-  ></app-talk-item>
+      *ngIf="!(isUserInfo && !talk.scheduled)"
+      [talk]="talk"
+      [isUserInfo]="isUserInfo"
+    ></app-talk-item>
+  </ng-container>
 </div>

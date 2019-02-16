@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Talk } from '../common/talk.model';
+import { UserService } from '../services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-talks',
@@ -8,8 +10,11 @@ import { Talk } from '../common/talk.model';
 })
 export class TalksComponent implements OnInit {
   @Input() talks: Talk[];
+  @Input() isUserInfo: boolean;
 
-  constructor() { }
+  constructor(
+    private userService: UserService
+  ) { }
 
   ngOnInit() { }
 
