@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/services/auth.service';
 import { SchoolService } from 'src/app/services/school.service';
 import { School } from 'src/app/common/school.model';
+import { validateConfig } from '@angular/router/src/config';
 
 @Component({
   selector: 'app-signup',
@@ -11,6 +12,7 @@ import { School } from 'src/app/common/school.model';
 })
 export class SignupComponent implements OnInit {
   public schools: School[];
+  form: FormGroup;
 
   constructor(
     private authService: AuthService,
@@ -18,24 +20,33 @@ export class SignupComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.form = new FormGroup({
+      email: new FormControl(null, {validators: [Validators.required, Validators.email]}),
+      password: new FormControl(null, {validators: [Validators.required, Validators.minLength(6)]}),
+      confirmPassword: new FormControl(null, {validators: [Validators.required, Validators.minLength(6)]}),
+      firstName: new FormControl(null, {validators: [Validators.required, Validators.maxLength(20)]}),
+      lastName: new FormControl(null, {validators: [Validators.required, Validators.maxLength(20)]}),
+      major: new FormControl(null, {validators: [Validators.required]}),
+      phone: new FormControl(null, {validators: [Validators.required, Validators.pattern(/\d*/)]}),
+      type: new FormControl(null),
+      selectedSchoolId: new FormControl(null)
+    });
     this.schoolService.getAllSchools()
       .subscribe(schoolsInfo => {
         this.schools = schoolsInfo.schools;
       });
   }
 
-  onSignUp(form: NgForm) {
-    if (form.invalid) {
-      return ;
-    }
+  onSignUp() {
     this.authService.createUser(
-      form.value.email,
-      form.value.password,
-      form.value.firstName,
-      form.value.lastName,
-      form.value.phone,
-      form.value.type,
-      form.value.selectedSchoolId
+      this.form.value.email,
+      this.form.value.password,
+      this.form.value.firstName,
+      this.form.value.lastName,
+      this.form.value.major,
+      this.form.value.phone,
+      this.form.value.type,
+      this.form.value.selectedSchoolId
     );
   }
 }

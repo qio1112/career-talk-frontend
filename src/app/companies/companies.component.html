@@ -1,7 +1,14 @@
-<div class="col-xm-10">
-  <app-company-item
-    *ngFor="let company of companies"
-    [company]="company"
-    [careerfair]="careerfair"
-  ></app-company-item>
+<div class="row">
+  <app-company-filter
+    class="col-3 filters-container"
+    [companies]="companies"
+    (filterChange)="onFilterChange($event)"
+    ></app-company-filter>
+  <div class="col-9 companies-container">
+    <app-company-item
+      *ngFor="let company of companies"
+      [company]="company"
+      [careerfair]="careerfair"
+    ></app-company-item>
+  </div>
 </div>

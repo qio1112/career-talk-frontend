@@ -1,0 +1,11 @@
+.companies-container {
+  max-width: 60%;
+  margin: 5%;
+  margin-left: 0;
+}
+
+.filters-container {
+  max-width: 30%;
+  margin: 5%;
+  margin-right: 0;
+}

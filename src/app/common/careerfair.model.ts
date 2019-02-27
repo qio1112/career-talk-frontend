@@ -12,17 +12,4 @@ export class CareerFair {
   endTime: Date;
   talkIds: string[];
   companyIds: string[];
-
-  constructor(
-      _id: string,
-      name: string,
-      schoolId: string,
-      address: string,
-      description: string,
-      startTime: Date,
-      endTime: Date,
-      talkIds: string[],
-      companyIds: string[]
-    ) {
-  }
 }

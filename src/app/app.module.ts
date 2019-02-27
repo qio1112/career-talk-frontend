@@ -14,7 +14,9 @@ import { MatInputModule,
          MatProgressSpinnerModule,
          MatExpansionModule,
          MatTabsModule,
-         MatListModule} from '@angular/material';
+         MatListModule,
+         MatCheckboxModule,
+         MatIconModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -38,6 +40,8 @@ import { UserService } from './services/user.service';
 import { SchoolService } from './services/school.service';
 import { TalksComponent } from './talks/talks.component';
 import { TalkItemComponent } from './talks/talk-item/talk-item.component';
+import { ResumeUploadComponent } from './users/user-info/resume-upload/resume-upload.component';
+import { CompanyFilterComponent } from './companies/company-filter/company-filter.component';
 
 
 
@@ -58,12 +62,15 @@ import { TalkItemComponent } from './talks/talk-item/talk-item.component';
     Page404Component,
     TalksComponent,
     TalkItemComponent,
+    ResumeUploadComponent,
+    CompanyFilterComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatInputModule,
@@ -75,7 +82,9 @@ import { TalkItemComponent } from './talks/talk-item/talk-item.component';
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatTabsModule,
-    MatListModule
+    MatListModule,
+    MatCheckboxModule,
+    MatIconModule
   ],
   providers: [
     CareerfairService,

@@ -1,0 +1,11 @@
+#userPhoto img {
+  width: 4rem;
+  height: 4rem;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  cursor: pointer;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}

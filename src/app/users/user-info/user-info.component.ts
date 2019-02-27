@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/common/user.model';
 import { Talk } from 'src/app/common/talk.model';
 import { Subscription } from 'rxjs';
+import { Urls } from 'src/app/common/urls';
 
 @Component({
   selector: 'app-user-info',
@@ -11,8 +12,10 @@ import { Subscription } from 'rxjs';
 })
 export class UserInfoComponent implements OnInit, OnDestroy {
 
+  private serverUrl = Urls.serverUrl;
   user = <User>{};
   scheduledTalks = <Talk[]>[];
+  avatarPath = '';
   // count the number of scheduled talks
   numberOfScheduledTalks = 0;
   private talkStatusListenerSubscription: Subscription;
@@ -26,6 +29,7 @@ export class UserInfoComponent implements OnInit, OnDestroy {
     this.userService.fetchUserInfo()
       .subscribe(userInfo => {
         this.user = userInfo.user;
+        this.avatarPath = this.serverUrl + '/' + this.user.avatarPath;
       });
     // get scheduled talks
     this.userService.findScheduledTalks()
@@ -45,5 +49,13 @@ export class UserInfoComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.talkStatusListenerSubscription.unsubscribe();
+  }
+
+  onChangePhoto(event: Event) {
+    const file: File = (event.target as HTMLInputElement).files[0];
+    this.userService.uploadAvatar(file)
+      .subscribe(result => {
+        console.log(result);
+      });
   }
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Company } from '../common/company.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { AuthService } from '../services/auth.service';
 import { Urls } from '../common/urls';
 import { CareerFair } from '../common/careerfair.model';
@@ -24,12 +24,12 @@ export class CompanyService {
   }
 
   // get companies in the certain career fair
-  findCompaniesByCareerfairId(cfId: string) {
+  findCompaniesByCareerfairId(cfId: string, params: HttpParams) {
     return this.http.get<{
         message: string,
         companies: Company[],
         careerfair: CareerFair
-      }>(this.serverUrl + '/careerfairs/' + cfId + '/companies')
+      }>(this.serverUrl + '/careerfairs/' + cfId + '/companies', {params: params})
       .pipe(
         map(companiesInfo => {
           this.companies = companiesInfo.companies;

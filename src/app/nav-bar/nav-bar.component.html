@@ -17,13 +17,13 @@
           <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup</a>
         </li>
         <li *ngIf="isAuthenticated">
-          <a mat-button routerLink="/userinfo" routerLinkActive="mat-accent">user image</a>
+          <a mat-button routerLink="/userinfo" routerLinkActive="mat-accent">
+            <img [src]="avatarPath" alt="User">
+            {{ user.firstName }}
+          </a>
         </li>
         <li *ngIf="isAuthenticated">
           <button mat-button (click)="onLogout()">Log out</button>
         </li>
-        <!-- <li *ngIf="">
-          <button mat-button (click)="onLogout()">Logout</button>
-        </li> -->
       </ul>
     </mat-toolbar>

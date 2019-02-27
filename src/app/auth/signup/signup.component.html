@@ -1,44 +1,32 @@
-<form (ngSubmit)="onSignUp(f)" #f="ngForm">
+<form (submit)="onSignUp()" [formGroup]="form">
   <mat-card>
     <h1>Sign Up Your Account</h1>
     <div id="forms">
       <mat-form-field>
         <input
           matInput
-          email
           type="text"
-          name="email"
-          ngModel
-          required
-          placeholder="Email"
-          #email="ngModel">
+          formControlName="email"
+          placeholder="Email">
       </mat-form-field>
-      <mat-error *ngIf="email.dirty && email.invalid">Please enter a valid email.</mat-error>
+      <mat-error *ngIf="form.get('email').dirty && form.get('email').invalid">Please enter a valid email.</mat-error>
+      <mat-form-field>
+        <input
+          matInput
+          formControlName="password"
+          type="password"
+          placeholder="Password">
+      </mat-form-field>
+      <mat-error *ngIf="form.get('password').dirty && form.get('password').dirty &&form.get('password').hasError('minlength')">password should be at least 6 characters</mat-error>
+      <mat-error *ngIf="form.get('password').dirty && form.get('password').hasError('required')">please input a password longer than 6 characters</mat-error>
       <mat-form-field>
         <input
           matInput
           type="password"
-          name="password"
-          ngModel
-          required
-          placeholder="Password"
-          minlength="6"
-          #password="ngModel">
+          formControlName="confirmPassword"
+          placeholder="Confirm Password">
       </mat-form-field>
-      <mat-error *ngIf="password.hasError('minlength')">password should be at laest 6 characters</mat-error>
-      <mat-error *ngIf="password.touched && password.hasError('required')">please input a password longer than 6 characters</mat-error>
-      <mat-form-field>
-        <input
-          matInput
-          type="password"
-          name="confirmPassword"
-          ngModel
-          required
-          placeholder="Confirm Password"
-          minlength="6"
-          #confirmPassword="ngModel">
-      </mat-form-field>
-      <mat-error *ngIf="confirmPassword.touched && confirmPassword.value !== password.value">password does not match</mat-error>
+      <mat-error *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').value !== form.get('password').value">password does not match</mat-error>
       <table>
         <tr>
           <td>
@@ -46,11 +34,8 @@
               <input
                 matInput
                 type="text"
-                name="firstName"
-                ngModel
-                required
-                placeholder="First name"
-                #firstName="ngModel">
+                formControlName="firstName"
+                placeholder="First name">
             </mat-form-field>
           </td>
           <td>
@@ -58,53 +43,49 @@
               <input
                 matInput
                 type="text"
-                name="lastName"
-                ngModel
-                required
-                placeholder="Last name"
-                #lastName="ngModel">
+                formControlName="lastName"
+                placeholder="Last name">
             </mat-form-field>
           </td>
         </tr>
-          <mat-error *ngIf="(firstName.touched && firstName.invalid) || (lastName.touched && lastName.invalid)">please enter your first name and last name</mat-error>
+          <mat-error *ngIf="(form.get('firstName').touched && form.get('firstName').invalid) || (form.get('lastName').touched && form.get('lastName').invalid)">please enter your first name and last name</mat-error>
       </table>
+      <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="major"
+            placeholder="Major">
+      </mat-form-field>
+      <mat-error *ngIf="(form.get('major').touched && form.get('major').invalid)">please enter your major</mat-error>
       <mat-form-field>
         <span matPrefix>+1 &nbsp;</span>
         <input
           type="tel"
           matInput
-          name="phone"
-          required
-          ngModel
-          placeholder="Telephone"
-          #phone="ngModel">
+          formControlName="phone"
+          placeholder="Telephone">
       </mat-form-field>
-      <mat-radio-group ngModel #type="ngModel" required name="type" matInput>
+      <mat-radio-group formControlName="type" matInput>
           <p>Are you signing up as a student or for a school?</p>
           <mat-radio-button value="student">Student</mat-radio-button>
           <mat-radio-button value="school">School</mat-radio-button>
       </mat-radio-group>
-      <mat-form-field *ngIf="type.value === 'school'">
+      <mat-form-field *ngIf="form.get('type').value === 'school'">
         <input
           matInput
           type="text"
-          name="schoolName"
-          ngModel
-          required
-          placeholder="School name"
-          #schoolName="ngModel">
+          formControlName="schoolName"
+          placeholder="School name">
       </mat-form-field>
-      <mat-form-field *ngIf="type.value==='student'">
+      <mat-form-field *ngIf="form.get('type').value==='student'">
         <mat-select
           placeholder="Select your school"
-          name="selectedSchoolId"
-          ngModel
-          required
-          #selectedSchoolId="ngModel">
+          formControlName="selectedSchoolId">
           <mat-option *ngFor="let school of schools" [value]="school._id">{{ school.name }}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-    <button mat-raised-button color="primary" [disabled]="!f.valid" type="submit">Sign Up</button>
+    <button mat-raised-button color="primary" [disabled]="form.invalid" type="submit">Sign Up</button>
   </mat-card>
 </form>

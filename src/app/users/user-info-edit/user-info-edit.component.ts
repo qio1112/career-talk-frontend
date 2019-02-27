@@ -36,10 +36,11 @@ export class UserInfoEditComponent implements OnInit {
   onEditUserInfo(form: NgForm) {
     const newFirstName = form.value.firstName;
     const newLastName = form.value.lastName;
+    const newMajor = form.value.major;
     const newPhone = form.value.phone;
     const newSchoolId = form.value.selectedSchoolId;
     console.log(form.value.firstName);
-    this.userService.updateUserInfo(newFirstName, newLastName, newPhone, newSchoolId)
+    this.userService.updateUserInfo(newFirstName, newLastName, newMajor, newPhone, newSchoolId)
       .subscribe(result => {
         console.log(result);
       });

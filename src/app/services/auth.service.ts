@@ -42,6 +42,7 @@ export class AuthService {
     password: string,
     firstName: string,
     lastName: string,
+    major: string,
     phone: string,
     type: string,
     schoolId: string
@@ -52,6 +53,7 @@ export class AuthService {
         password: password,
         firstname: firstName,
         lastname: lastName,
+        major: major,
         phone: phone,
         type: type,
         schoolId: schoolId

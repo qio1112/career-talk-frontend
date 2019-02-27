@@ -1,35 +1,28 @@
-<form (ngSubmit)="onLogin(f)" #f="ngForm">
+<form [formGroup]="form" (submit)="onLogin()">
   <mat-card>
     <h2>Login Your Account</h2>
     <div>
       <mat-form-field>
         <input
           matInput
-          email
           type="text"
-          name="email"
-          ngModel
-          required
-          placeholder="Email"
-          #email="ngModel">
+          formControlName="email"
+          placeholder="Email">
       </mat-form-field>
-      <mat-error *ngIf="email.dirty && email.invalid">Please enter a valid email.</mat-error>
+      <mat-error *ngIf="form.get('email').dirty && form.get('email').invalid">Please enter a valid email.</mat-error>
     </div>
     <div>
       <mat-form-field>
         <input
           matInput
           type="password"
-          name="password"
-          ngModel
-          required
-          placeholder="Password"
-          #password="ngModel">
+          formControlName="password"
+          placeholder="Password">
       </mat-form-field>
-      <mat-error *ngIf="password.dirty && password.invalid">Please enter a valid password.</mat-error>
+      <mat-error *ngIf="form.get('password').dirty && form.get('password').invalid">Please enter a valid password.</mat-error>
     </div>
     <div>
-      <button mat-raised-button color="primary" [disabled]="!f.valid" type="submit">Login</button>
+      <button mat-raised-button color="primary" [disabled]="form.invalid" type="submit">Login</button>
       <a (onclick)="onForgetPassword()" class="btn"><u>Forget your password?</u></a>
     </div>
   </mat-card>

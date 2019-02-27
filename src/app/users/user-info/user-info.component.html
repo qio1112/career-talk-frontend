@@ -1,6 +1,18 @@
 <h3>Your Account</h3>
 <mat-list>
   <button mat-raised-button color="primary" [routerLink]="'/userinfo/edit'">Edit Your Account</button>
+  <mat-list-item  id="userPhoto">
+    <label>
+        Photo: <img [src]="avatarPath" alt="User">
+        <button mat-button type="button" (click)="photoUpload.click()">Change</button>
+        <input
+          #photoUpload
+          type="file"
+          accept="image/png, image/jpg, image/jpeg"
+          (change)="onChangePhoto($event)"
+        >
+      </label>
+  </mat-list-item>
   <mat-list-item>
       Email: {{ user.email }}
   </mat-list-item>
@@ -14,7 +26,13 @@
       School: {{ user.school }}
   </mat-list-item>
   <mat-list-item>
+      Major: {{ user.major }}
+  </mat-list-item>
+  <mat-list-item>
       Phone: {{ user.phone }}
+  </mat-list-item>
+  <mat-list-item>
+     <app-resume-upload [resumePath]="user.resumePath"></app-resume-upload>
   </mat-list-item>
   <p>This is a {{ user.type }} account.</p>
 </mat-list>

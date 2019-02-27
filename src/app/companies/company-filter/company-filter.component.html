@@ -1,0 +1,64 @@
+<mat-card>
+  <mat-card-content class="filters-container">
+    <h5>Filter</h5>
+    <section>
+      <mat-checkbox [ngModel]="sponsor" (change)="onSponsorChange($event)">
+        sponsor only
+      </mat-checkbox>
+    </section>
+    <hr>
+    <section>
+      <mat-checkbox [ngModel]="fulltime" (change)="onFulltimeChange($event)">
+        fulltime
+      </mat-checkbox>
+    </section>
+    <section>
+      <mat-checkbox [ngModel]="intern" (change)="onInternChange($event)">
+        intern
+      </mat-checkbox>
+    </section>
+    <hr>
+    <section>
+      <mat-checkbox [ngModel]="freshman" (change)="onFreshmanChange($event)">
+        freshman
+      </mat-checkbox>
+    </section>
+    <section>
+      <mat-checkbox [ngModel]="juniorOrSenior" (change)="onJuniorOrSeniorChange($event)">
+        junior/senior
+      </mat-checkbox>
+    </section>
+    <section>
+      <mat-checkbox [ngModel]="graduate" (change)="onGraduateChange($event)">
+        graduate
+      </mat-checkbox>
+    </section>
+    <section>
+      <mat-checkbox [ngModel]="doctoral" (change)="onDoctoralChange($event)">
+        doctoral
+      </mat-checkbox>
+    </section>
+    <hr>
+    <section>
+      <h5>Major:</h5>
+      <div class="row">
+        <mat-select
+          class="col-7"
+          placeholder="Major"
+          name="majorSelection"
+          ngModel
+          #majorSelection="ngModel"
+          >
+          <mat-option *ngFor="let major of majors; let i = index" [value]="i">{{ major }}</mat-option>
+        </mat-select>
+        <button class="col-2" type="button" mat-raised-button color="primary" (click)="onAddSelectedMajor(majorSelection.value)">add</button>
+      </div>
+      <mat-list>
+        <mat-list-item *ngFor="let selectedMajor of selectedMajors; let i = index" class="row">
+          <div class="col-10 major-name">{{selectedMajor}}</div>
+          <button type="button" class="major-button" (click)="onRemoveSelectedMajor(i)">x</button>
+        </mat-list-item>
+      </mat-list>
+    </section>
+  </mat-card-content>
+</mat-card>

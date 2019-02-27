@@ -1,4 +1,4 @@
-<div>
+<div id="talks-container">
   <ng-container *ngFor="let talk of talks">
     <app-talk-item
       *ngIf="!(isUserInfo && !talk.scheduled)"

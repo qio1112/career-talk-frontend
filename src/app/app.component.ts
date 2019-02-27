@@ -10,7 +10,7 @@ export class AppComponent implements OnInit {
   title = 'Career Talk';
 
   constructor(
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {

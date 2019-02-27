@@ -34,6 +34,17 @@
             <mat-error *ngIf="(firstName.touched && firstName.invalid) || (lastName.touched && lastName.invalid)">please enter your first name and last name</mat-error>
         </table>
         <mat-form-field>
+            <input
+              type="text"
+              matInput
+              name="major"
+              required
+              ngModel
+              placeholder="Major"
+              [(ngModel)]="oldUser.major"
+              #major="ngModel">
+          </mat-form-field>
+        <mat-form-field>
           <span matPrefix>+1 &nbsp;</span>
           <input
             type="tel"

@@ -5,7 +5,9 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../common/user.model';
 import { Talk } from '../common/talk.model';
 import { Subject } from 'rxjs';
-import { EmailValidator } from '@angular/forms';
+import { EmailValidator, FormGroup, FormControl, Validators } from '@angular/forms';
+import { map } from 'rxjs/operators';
+import { stringify } from '@angular/core/src/render3/util';
 
 /**
  * A service for fetching and setiing user information.
@@ -15,6 +17,7 @@ export class UserService {
   private user: User;
   private serverUrl: string = Urls.serverUrl;
   private talkStatusListener = new Subject<{talkId: string, status: boolean}>();
+  private userInformationChangeListener = new Subject<{message: string}>();
 
   constructor(
     private authService: AuthService,
@@ -29,6 +32,10 @@ export class UserService {
     return this.user;
   }
 
+  getUserInformationChangeListener() {
+    return this.userInformationChangeListener;
+  }
+
   getTalkStatusListener() {
     return this.talkStatusListener;
   }
@@ -36,13 +43,10 @@ export class UserService {
   // get user info as a User object
   // return Observable
   fetchUserInfo() {
-    // if (!this.authService.getAuthStatus()) {
-    //   return ;
-    // }
     return this.http.get<{
         message: string,
         user: User
-      }>(this.serverUrl + '/userinfo');
+      }>(this.serverUrl + '/user');
   }
 
   // POST request, schedule a talk
@@ -69,9 +73,32 @@ export class UserService {
   }
 
   // PATCH update user information
-  updateUserInfo(firstName: string, lastName: string, phone: string, schoolId: string) {
-    return this.http.patch<{message: string}>(this.serverUrl + '/userinfo/edit',
-      {firstName: firstName, lastName: lastName, phone: phone, schoolId: schoolId});
+  updateUserInfo(firstName: string, lastName: string, major: string, phone: string, schoolId: string) {
+    return this.http.patch<{message: string}>(this.serverUrl + '/user/edit',
+      {firstName: firstName, lastName: lastName, major: major, phone: phone, schoolId: schoolId});
+  }
+
+  // POST upload the resume
+  uploadResume(file: File) {
+    const formData = new FormData();
+    formData.append('resume', file, file.name);
+    return this.http.post<{
+      message: string, path: string
+    }>(this.serverUrl + '/user/upload/resume', formData);
+  }
+
+  // GET download uploaded resume
+  downloadResume() {
+    return this.http.get(this.serverUrl + '/user/download/resume', {responseType: 'blob'});
+  }
+
+  // PATCH update user photo
+  uploadAvatar(file: File) {
+    const formData = new FormData();
+    formData.append('avatar', file, file.name);
+    return this.http.patch<{
+      message: string, path: string
+    }>(this.serverUrl + '/user/upload/avatar', formData);
   }
 
 }
