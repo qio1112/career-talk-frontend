@@ -81,7 +81,7 @@ import { ApiKeys } from './api-keys';
     HttpClientModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
-      apiKey: ApiKeys.googleMapsApiKey;
+      apiKey: ApiKeys.googleMapsApiKey
     }),
     MatInputModule,
     MatCardModule,
