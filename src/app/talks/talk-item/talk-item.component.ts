@@ -1,22 +1,26 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, OnChanges, SimpleChanges } from '@angular/core';
 import { Talk } from 'src/app/common/talk.model';
 import { Company } from 'src/app/common/company.model';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 import { Subscription } from 'rxjs';
+import { DateParser } from 'src/app/common/dateParser';
 
 @Component({
   selector: 'app-talk-item',
   templateUrl: './talk-item.component.html',
   styleUrls: ['./talk-item.component.css']
 })
-export class TalkItemComponent implements OnInit, OnDestroy {
+export class TalkItemComponent implements OnInit, OnDestroy, OnChanges {
   @Input() talk: Talk;
   @Input() isUserInfo: boolean;
   private userId: string;
   isScheduledByMe = false; // if the talk is scheduled by the current user
   isScheduled = true;
   private talkStatusListenerSubscription: Subscription;
+  date = <string>'';
+  startTime = <string>'';
+  endTime = <string>'';
 
   constructor(
     private authService: AuthService,
@@ -39,6 +43,16 @@ export class TalkItemComponent implements OnInit, OnDestroy {
           this.talk.scheduled = result.status;
         }
       });
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.talk) {
+      const startTime = new Date(this.talk.startTime);
+      const endTime = new Date(this.talk.endTime);
+      this.date = DateParser.parseDate(startTime).date;
+      this.startTime = DateParser.parseDate(startTime).time;
+      this.endTime = DateParser.parseDate(endTime).time;
+    }
   }
 
   ngOnDestroy() {

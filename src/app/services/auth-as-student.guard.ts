@@ -4,10 +4,10 @@ import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
 
 /**
- * a guard which protects routes which need user logging in
+ * a guard which protects routes for student users
  */
 @Injectable()
-export class AuthGuard implements CanActivate {
+export class AuthAsStudentGuard implements CanActivate {
 
   constructor(
     private authService: AuthService,
@@ -22,6 +22,7 @@ export class AuthGuard implements CanActivate {
       if (!isAuthenticated) {
         this.router.navigate(['/login']);
       }
-      return isAuthenticated;
+      const userType = this.authService.getUserType();
+      return isAuthenticated && userType === 'student';
   }
 }

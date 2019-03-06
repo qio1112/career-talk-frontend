@@ -9,7 +9,7 @@ export class Company {
   description: string;
   imagePath: string;
   website: string;
-  major: string[];
+  majors: string[];
   sponsor: boolean;
   fulltime: boolean;
   intern: boolean;

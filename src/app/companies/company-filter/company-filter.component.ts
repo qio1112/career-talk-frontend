@@ -78,9 +78,9 @@ export class CompanyFilterComponent implements OnInit, OnChanges {
 
   private getMajorsFromCompanies() {
     const set = new Set();
-    if(this.companies) {
+    if (this.companies) {
       this.companies.forEach(company => {
-          company.major.forEach(major => {
+          company.majors.forEach(major => {
             set.add(major.trim().toLowerCase());
           });
       });

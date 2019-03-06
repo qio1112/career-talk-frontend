@@ -1,10 +1,23 @@
 <div class="row">
-  <app-company-filter
-    class="col-3 filters-container"
-    [companies]="companies"
-    (filterChange)="onFilterChange($event)"
-    ></app-company-filter>
+  <div class="col-3 left-container">
+    <app-company-filter
+      class="filters"
+      [companies]="companies"
+      (filterChange)="onFilterChange($event)"
+      ></app-company-filter>
+    <agm-map
+      [latitude]="careerfair?.latitude"
+      [longitude]="careerfair?.longitude"
+      [zoom] = "16"
+      >
+      <agm-marker
+        [latitude]="careerfair?.latitude"
+        [longitude]="careerfair?.longitude">
+      </agm-marker>
+    </agm-map>
+  </div>
   <div class="col-9 companies-container">
+    <h5>Companies:</h5>
     <app-company-item
       *ngFor="let company of companies"
       [company]="company"

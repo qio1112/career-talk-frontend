@@ -4,8 +4,22 @@
   margin-left: 0;
 }
 
-.filters-container {
+.left-container {
   max-width: 30%;
   margin: 5%;
   margin-right: 0;
+}
+
+.filters {
+  margin: 30px;
+}
+
+app-company-item {
+  margin: 15px;
+  margin-top: 0;
+}
+
+agm-map {
+  height: 300px;
+  max-width: 300px;
 }

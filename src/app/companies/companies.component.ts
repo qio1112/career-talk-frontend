@@ -38,6 +38,7 @@ export class CompaniesComponent implements OnInit {
       .subscribe(companiesInfo => {
         this.companies = companiesInfo.companies;
         this.careerfair = companiesInfo.careerfair;
+        console.log(this.careerfair);
       });
   }
 

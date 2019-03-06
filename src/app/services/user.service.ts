@@ -5,9 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { User } from '../common/user.model';
 import { Talk } from '../common/talk.model';
 import { Subject } from 'rxjs';
-import { EmailValidator, FormGroup, FormControl, Validators } from '@angular/forms';
-import { map } from 'rxjs/operators';
-import { stringify } from '@angular/core/src/render3/util';
 
 /**
  * A service for fetching and setiing user information.

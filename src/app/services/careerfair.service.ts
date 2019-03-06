@@ -25,4 +25,15 @@ export class CareerfairService {
       careerfairs: CareerFair[]
     }>(this.serverUrl + '/careerfairs');
   }
+
+  // get all different majors in the career fair
+  findMajorsInCareerfair(careerfairId: string) {
+    if (!this.authService.getAuthStatus()) {
+      return ;
+    }
+    return this.http.get<{
+      message: string,
+      majors: string[]
+    }>(this.serverUrl + '/careerfairs/' + careerfairId + '/majors');
+  }
 }

@@ -1,4 +1,4 @@
-<div class="card text-white bg-info mb-3">
+<!-- <div class="card text-white bg-info mb-3">
     <div (click)="onLoadCompanies()" class="card-header" id="cardHeader">
         <a routerLinkActive="router-link-active" >
             {{ careerfair.name }}
@@ -17,4 +17,28 @@
           </li>
       </ul>
     </div>
-</div>
+</div> -->
+<mat-card>
+  <mat-card-header (click)="onLoadCompanies()">
+    <mat-card-title>{{careerfair.name}}</mat-card-title>
+    <mat-card-subtitle>{{careerfair.description}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <hr>
+    <mat-list>
+      <mat-list-item>
+        Date: {{date}}
+      </mat-list-item>
+      <mat-list-item>
+        Time: {{startTime}} to {{endTime}}
+      </mat-list-item>
+      <mat-list-item>
+        Location: {{careerfair.address}}
+      </mat-list-item>
+      <mat-list-item>
+        Majors: some majors
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
+
+</mat-card>

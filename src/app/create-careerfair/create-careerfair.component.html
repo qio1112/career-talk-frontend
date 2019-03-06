@@ -1,0 +1,84 @@
+<h1>Create a new career fair</h1>
+<form (submit)="onCreateCareerfair()" *ngIf="createStage === 0">
+  <h4>Career fair information</h4>
+  <div class="forms">
+    <mat-card>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            placeholder="Career fair name">
+        </mat-form-field>
+        <mat-error *ngIf="true">Please enter a career fair name which is longer than 6 characters.</mat-error>
+        <mat-form-field>
+          <input
+            matInput
+            [min]="minDate"
+            [matDatepicker]="picker"
+            placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <mat-error *ngIf="true">Please choose a date.</mat-error>
+        <mat-form-field class="time-input">
+          <input
+            matInput
+            type="time"
+            placeholder="Start time">
+        </mat-form-field>
+        <mat-error *ngIf="true">Please enter a start time.</mat-error>
+        <mat-form-field class="time-input">
+          <input
+            matInput
+            type="time"
+            placeholder="End time">
+        </mat-form-field>
+        <mat-error *ngIf="true">Please enter a end time.</mat-error>
+        <button mat-raised-button color="primary" type="submit">next</button>
+      </mat-card>
+  </div>
+</form>
+
+<div *ngIf="createStage === 1">
+  <h4>Add companies</h4>
+  <app-added-company
+    *ngFor="let addedCompany of addedCompanies"
+    [addedCompany]="addedCompany"
+  ></app-added-company>
+  <form (submit)="onAddCompaniesAndTalks()">
+    <mat-card>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          placeholder="Company name">
+      </mat-form-field>
+      <mat-error *ngIf="true">Please enter a company name.</mat-error>
+      Talks:
+      <mat-list class="list-group">
+        <mat-list-item class="list-group-item" *ngFor="let addedTalk of addedTalks; let i = index">
+          Talk {{i}}: from {{addedTalk.startTime}} to {{addedTalk.endTime}}
+        </mat-list-item>
+      </mat-list>
+      <div class="row add-talk">
+        <div class="col-2 add-talk-item">New Talk</div>
+        <mat-form-field class="col-4">
+          <input
+            matInput
+            type="time"
+            placeholder="Start Time">
+        </mat-form-field>
+        <mat-form-field class="col-4">
+          <input
+            matInput
+            type="time"
+            placeholder="End Time">
+        </mat-form-field>
+        <button class="add-talk-item" mat-raised-button color="primary" type="button">Add talk</button>
+      </div>
+      <button mat-raised-button type="button" color="primary">Add company</button>
+    </mat-card>
+    <button mat-raised-button type="submit" color="primary">Submit</button>
+  </form>
+</div>
+

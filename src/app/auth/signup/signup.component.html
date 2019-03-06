@@ -1,7 +1,7 @@
 <form (submit)="onSignUp()" [formGroup]="form">
   <mat-card>
     <h1>Sign Up Your Account</h1>
-    <div id="forms">
+    <div class="forms">
       <mat-form-field>
         <input
           matInput
@@ -27,7 +27,12 @@
           placeholder="Confirm Password">
       </mat-form-field>
       <mat-error *ngIf="form.get('confirmPassword').touched && form.get('confirmPassword').value !== form.get('password').value">password does not match</mat-error>
-      <table>
+      <mat-radio-group formControlName="type" matInput>
+          <p>Are you signing up as a student or for a school?</p>
+          <mat-radio-button value="student">Student</mat-radio-button>
+          <mat-radio-button value="school">School</mat-radio-button>
+      </mat-radio-group>
+      <table *ngIf="form.get('type').value === 'student'">
         <tr>
           <td>
             <mat-form-field>
@@ -50,7 +55,7 @@
         </tr>
           <mat-error *ngIf="(form.get('firstName').touched && form.get('firstName').invalid) || (form.get('lastName').touched && form.get('lastName').invalid)">please enter your first name and last name</mat-error>
       </table>
-      <mat-form-field>
+      <mat-form-field *ngIf="form.get('type').value === 'student'">
           <input
             matInput
             type="text"
@@ -58,7 +63,7 @@
             placeholder="Major">
       </mat-form-field>
       <mat-error *ngIf="(form.get('major').touched && form.get('major').invalid)">please enter your major</mat-error>
-      <mat-form-field>
+      <mat-form-field *ngIf="form.get('type').value === 'student'">
         <span matPrefix>+1 &nbsp;</span>
         <input
           type="tel"
@@ -66,11 +71,7 @@
           formControlName="phone"
           placeholder="Telephone">
       </mat-form-field>
-      <mat-radio-group formControlName="type" matInput>
-          <p>Are you signing up as a student or for a school?</p>
-          <mat-radio-button value="student">Student</mat-radio-button>
-          <mat-radio-button value="school">School</mat-radio-button>
-      </mat-radio-group>
+
       <mat-form-field *ngIf="form.get('type').value === 'school'">
         <input
           matInput

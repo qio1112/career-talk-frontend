@@ -16,7 +16,9 @@ import { MatInputModule,
          MatTabsModule,
          MatListModule,
          MatCheckboxModule,
-         MatIconModule} from '@angular/material';
+         MatIconModule,
+         MatDatepickerModule,
+         MatNativeDateModule} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
@@ -42,7 +44,9 @@ import { TalksComponent } from './talks/talks.component';
 import { TalkItemComponent } from './talks/talk-item/talk-item.component';
 import { ResumeUploadComponent } from './users/user-info/resume-upload/resume-upload.component';
 import { CompanyFilterComponent } from './companies/company-filter/company-filter.component';
-
+import { AgmCoreModule } from '@agm/core';
+import { CreateCareerfairComponent } from './create-careerfair/create-careerfair.component';
+import { AddedCompanyComponent } from './create-careerfair/added-company/added-company.component';
 
 
 @NgModule({
@@ -64,6 +68,8 @@ import { CompanyFilterComponent } from './companies/company-filter/company-filte
     TalkItemComponent,
     ResumeUploadComponent,
     CompanyFilterComponent,
+    CreateCareerfairComponent,
+    AddedCompanyComponent,
   ],
   imports: [
     BrowserModule,
@@ -73,6 +79,9 @@ import { CompanyFilterComponent } from './companies/company-filter/company-filte
     ReactiveFormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCp_wy-tKCFcQ2Oy-qyoL5NU-woiJdQzsw'
+    }),
     MatInputModule,
     MatCardModule,
     MatButtonModule,
@@ -84,7 +93,9 @@ import { CompanyFilterComponent } from './companies/company-filter/company-filte
     MatTabsModule,
     MatListModule,
     MatCheckboxModule,
-    MatIconModule
+    MatIconModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   providers: [
     CareerfairService,

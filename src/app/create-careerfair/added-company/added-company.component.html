@@ -1,0 +1,15 @@
+<mat-card>
+  <div class="row">
+    <div class="col-5">
+      <h5>{{ addedCompany.name }}</h5>
+      <button type="button" mat-button color="warn">Delete</button>
+    </div>
+    <div class="col-7">
+      <mat-list>
+        <mat-list-item *ngFor="let talk of addedCompany.talks; let i = index">
+          <p>talk {{i}}: from {{talk.startTime}} to {{talk.endTime}}</p>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </div>
+</mat-card>

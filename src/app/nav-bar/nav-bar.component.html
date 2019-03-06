@@ -4,12 +4,15 @@
       </span>
       <span class="spacer"></span>
       <ul>
-        <li *ngIf="isAuthenticated">
+        <li *ngIf="isAuthenticated && user.type === 'student'">
           <a mat-button routerLink="/careerfairs" routerLinkActive="mat-accent">Career Fairs</a>
         </li>
-        <li *ngIf="isAuthenticated">
-          <a mat-button routerLink="/scheduledtalks" routerLinkActive="mat-accent">Scheduled Talks</a>
+        <li *ngIf="isAuthenticated && user.type === 'school'">
+          <a mat-button routerLink="/careerfairs/createcareerfair" routerLinkActive="mat-accent">Create Career Fairs</a>
         </li>
+        <!-- <li *ngIf="isAuthenticated">
+          <a mat-button routerLink="/scheduledtalks" routerLinkActive="mat-accent">Scheduled Talks</a>
+        </li> -->
         <li *ngIf="!isAuthenticated">
           <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login</a>
         </li>

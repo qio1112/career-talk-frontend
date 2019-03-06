@@ -7,9 +7,11 @@ export class CareerFair {
   name: string;
   schoolId: string;
   address: string;
+  latitude: number;
+  longitude: number;
   description: string;
-  startTime: Date;
-  endTime: Date;
+  startTime: string;
+  endTime: string;
   talkIds: string[];
   companyIds: string[];
 }

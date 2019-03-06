@@ -11,6 +11,7 @@ export class AuthService {
   private token: string; // jwt
   private expiresIn: number; // token expires, milliseconds
   private userId: string; // mongodb id of current user
+  private userType: string;
   private tokenTimer: any; // a timer for invalid the stored token
   private authStatusListener = new Subject<boolean>(); // listen to the status of login
   private isAuthenticated = false; // if user logged in
@@ -28,6 +29,10 @@ export class AuthService {
     return this.userId;
   }
 
+  getUserType() {
+    return this.userType;
+  }
+
   getAuthStatusListener() {
     return this.authStatusListener.asObservable();
   }
@@ -36,7 +41,7 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
-  // POST request to server to create new user
+  // POST request to server to create new user as student
   createUser(
     email: string,
     password: string,
@@ -47,7 +52,7 @@ export class AuthService {
     type: string,
     schoolId: string
   ) {
-    this.http.post<{message: string, result: string}>(this.homeUrl + '/signup',
+    this.http.post<{message: string, result: string}>(this.homeUrl + '/signup/student',
       {
         email: email,
         password: password,
@@ -64,18 +69,39 @@ export class AuthService {
       });
   }
 
+  // POST request create new user as school
+  createUserAsSchool(
+    email: string,
+    password: string,
+    school: string
+  ) {
+    this.http.post<{
+      message: string,
+      result: string
+    }>(this.homeUrl + '/signup/school', {
+      email: email,
+      password: password,
+      type: 'school',
+      school: school
+    }).subscribe(res => {
+      console.log(res);
+      this.router.navigate(['/login']);
+    })
+  }
+
   // POST request to send login info to server
   loginUser(email: string, password: string) {
     this.http
-      .post<{message: string, token: string, expiresIn: string, userId: string}>
+      .post<{message: string, token: string, expiresIn: string, userId: string, userType: string}>
         (this.homeUrl + '/login', {email: email, password: password})
       .subscribe(res => {
         this.token = res.token;
         this.expiresIn = +res.expiresIn * 1000; // ms
         this.userId = res.userId;
+        this.userType = res.userType;
         if (this.token) {
           const now = new Date();
-          this.saveAuthToken(this.token, new Date(now.getTime() + this.expiresIn), this.userId);
+          this.saveAuthToken(this.token, new Date(now.getTime() + this.expiresIn), this.userId, this.userType);
           this.setTokenTimer(this.expiresIn);
           this.authStatusListener.next(true); // logged in
           this.isAuthenticated = true;
@@ -108,6 +134,7 @@ export class AuthService {
       this.setTokenTimer(this.expiresIn);
       this.token = authTokenInfo.token;
       this.userId = authTokenInfo.userId;
+      this.userType = authTokenInfo.userType;
       this.isAuthenticated = true;
       this.authStatusListener.next(true);
     }
@@ -119,10 +146,11 @@ export class AuthService {
   }
 
   // save jwt in local storage
-  private saveAuthToken(token: string, expiration: Date, userId: string) {
+  private saveAuthToken(token: string, expiration: Date, userId: string, userType: string) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expiration.toISOString());
     localStorage.setItem('userId', userId);
+    localStorage.setItem('userType', userType);
   }
 
   // remove jwt in local storage
@@ -130,6 +158,7 @@ export class AuthService {
     localStorage.removeItem('token');
     localStorage.removeItem('expiration');
     localStorage.removeItem('userId');
+    localStorage.removeItem('userType');
   }
 
   // get the stored token
@@ -137,9 +166,10 @@ export class AuthService {
     const token = localStorage.getItem('token');
     const expiration = localStorage.getItem('expiration');
     const userId = localStorage.getItem('userId');
-    if (!token || !expiration || !userId) {
+    const userType = localStorage.getItem('userType');
+    if (!token || !expiration || !userId || !userType) {
       return ;
     }
-    return { token: token, expiration: new Date(expiration), userId: userId };
+    return { token: token, expiration: new Date(expiration), userId: userId, userType: userType };
   }
 }

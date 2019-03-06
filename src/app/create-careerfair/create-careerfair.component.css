@@ -1,12 +1,8 @@
-h2 {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-
 mat-card {
+  height: auto;
   width: 80%;
-  margin: auto;
+  margin: 1rem auto;
   text-align: center;
-  margin-top: 1rem;
 }
 
 mat-form-field {
@@ -32,7 +28,24 @@ mat-error {
   padding-left: auto;
 }
 
-mat-radio-button {
-  margin-right: 5%;
+.time-input {
+  width: 4rem;
 }
 
+mat-list {
+  height: auto;
+}
+
+li {
+  height: 5rem;
+}
+
+.add-talk-item {
+  height: auto;
+  margin: auto;
+}
+
+.add-talk {
+  text-align: center;
+  margin: 20px;
+}
