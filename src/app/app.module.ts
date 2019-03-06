@@ -47,6 +47,7 @@ import { CompanyFilterComponent } from './companies/company-filter/company-filte
 import { AgmCoreModule } from '@agm/core';
 import { CreateCareerfairComponent } from './create-careerfair/create-careerfair.component';
 import { AddedCompanyComponent } from './create-careerfair/added-company/added-company.component';
+import { ApiKeys } from './api-keys';
 
 
 @NgModule({
@@ -80,7 +81,7 @@ import { AddedCompanyComponent } from './create-careerfair/added-company/added-c
     HttpClientModule,
     BrowserAnimationsModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCp_wy-tKCFcQ2Oy-qyoL5NU-woiJdQzsw'
+      apiKey: ApiKeys.googleMapsApiKey;
     }),
     MatInputModule,
     MatCardModule,
