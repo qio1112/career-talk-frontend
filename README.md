@@ -24,34 +24,34 @@ export class ApiKeys {
 
 ## Introduction to files
 ### Components
-- Auth
+- Auth  
 The Auth folder `src/app/auth` contains SignupComponent and LoginComponent for authentication. These two components contains the forms of signing up and logging in pages.
-- User
+- User  
 The users folder `src/app/users` contains UserInfoComponent and UserInfoEditComponent for showing and editing user information. User can also upload and download resume pdf file on the page which contains the UserInfoComponent.
-- NavBarComponent
+- NavBarComponent  
 The NavBarComponent is the navigation bar of the application. It contains different buttons with different auth status (not logged in/logged in as student/logged in as school).
-- CareerFairsComponent
+- CareerFairsComponent  
 The CareerFairsComponent contains the information about the career fairs with companies in the user's college. A student user needs to log in to see the information.
-- CompaniesComponent
+- CompaniesComponent  
 The CompaniesComponent contains the information about the companies in a certain career fair.
-- TalksComponent
+- TalksComponent  
 The TalksComponent shows the talks of a company in a certain career fair or user scheduled talks in user information page, with function of scheduling or unscheduling.
-- CreateCareerfairComponent
+- CreateCareerfairComponent  
 The CreateCareerfairComponent is used for a school user to create new career fair in the app and add companies and talks to it.
 
 ### Services
 Services are all in the folder `src/app/services`.
-- AuthService
+- AuthService  
 The AuthService provides the functions of sending signing up and logging in http requests, store the JWT and other data for automatically signing in and logging out.
-- Auth guards
+- Auth guards  
 Two auth guards AuthAsSchoolGuard and AuthAsStudentGuard are used for protecting some routes for school user and student user respectively.
 - CareerfairService, CompanyService, SchoolService
 These three services provides the functions of fetching data from server and creating new data in database through HTTP requests.
-- UserService
+- UserService  
 The UserService provides the functions of fetching user information from server, scheduling and unscheduling talks, and edit user information through HTTP requests.
 
 ### Others
-- common
+- common  
 The folder `src/app/common` stores some basic data models mostly used for data transformation of HTTP requests.
-- app-routing.module.ts
+- app-routing.module.ts  
 `src/app/app-routing.module.ts` is stores the relation between routs and components.
