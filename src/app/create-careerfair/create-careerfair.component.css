@@ -6,7 +6,7 @@ mat-card {
 }
 
 mat-form-field {
-  width: 100%;
+  width: 80%;
 }
 
 textarea {
@@ -14,7 +14,8 @@ textarea {
 }
 
 input {
-   width: 120%
+   width: 120%;
+   padding: 0;
 }
 
 mat-error {
@@ -29,7 +30,8 @@ mat-error {
 }
 
 .time-input {
-  width: 4rem;
+  width: 6rem;
+  margin: 1rem;
 }
 
 mat-list {

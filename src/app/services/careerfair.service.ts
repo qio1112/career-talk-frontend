@@ -36,4 +36,14 @@ export class CareerfairService {
       majors: string[]
     }>(this.serverUrl + '/careerfairs/' + careerfairId + '/majors');
   }
+
+  // create a new careerfair
+  createCareerfair(name: string, date: Date, location: string, startTime: Date, endTime: Date) {
+
+  }
+
+  // create multiple talks to certain career fair
+  createTalks(careerfairId: string, talks: {companyId: string, startTime: DataCue, endTIme: Date}[]) {
+
+  }
 }

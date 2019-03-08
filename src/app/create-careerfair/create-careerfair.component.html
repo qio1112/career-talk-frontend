@@ -1,5 +1,5 @@
 <h1>Create a new career fair</h1>
-<form (submit)="onCreateCareerfair()" *ngIf="createStage === 0">
+<form (submit)="onCreateCareerfair()" *ngIf="createStage === 0" [formGroup]="createCareerfairForm">
   <h4>Career fair information</h4>
   <div class="forms">
     <mat-card>
@@ -7,34 +7,49 @@
           <input
             matInput
             type="text"
+            formControlName="name"
             placeholder="Career fair name">
         </mat-form-field>
-        <mat-error *ngIf="true">Please enter a career fair name which is longer than 6 characters.</mat-error>
+        <mat-error *ngIf="createCareerfairForm.get('name').dirty && createCareerfairForm.get('name').invalid">Please enter a career fair name which is longer than 6 characters.</mat-error>
         <mat-form-field>
           <input
             matInput
             [min]="minDate"
+            formControlName="date"
             [matDatepicker]="picker"
             placeholder="Choose a date">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker></mat-datepicker>
         </mat-form-field>
-        <mat-error *ngIf="true">Please choose a date.</mat-error>
-        <mat-form-field class="time-input">
+        <mat-error *ngIf="createCareerfairForm.get('date').dirty && createCareerfairForm.get('date').invalid">Please choose a date.</mat-error>
+        <mat-form-field>
           <input
             matInput
-            type="time"
-            placeholder="Start time">
+            type="text"
+            formControlName="location"
+            placeholder="Location">
         </mat-form-field>
-        <mat-error *ngIf="true">Please enter a start time.</mat-error>
-        <mat-form-field class="time-input">
-          <input
-            matInput
-            type="time"
-            placeholder="End time">
-        </mat-form-field>
-        <mat-error *ngIf="true">Please enter a end time.</mat-error>
-        <button mat-raised-button color="primary" type="submit">next</button>
+        <mat-error *ngIf="createCareerfairForm.get('location').dirty && createCareerfairForm.get('location').invalid">Please enter a location.</mat-error>
+       <div>
+         <mat-form-field class="time-input">
+           <input
+             matInput
+             type="time"
+             formControlName="startTime"
+             placeholder="Start time">
+         </mat-form-field>
+         <mat-form-field class="time-input">
+           <input
+           matInput
+           type="time"
+           formControlName="endTime"
+           placeholder="End time">
+          </mat-form-field>
+          <mat-error *ngIf="createCareerfairForm.get('startTime').dirty && createCareerfairForm.get('startTime').invalid">Please enter a start time.</mat-error>
+          <mat-error *ngIf="createCareerfairForm.get('endTime').dirty && createCareerfairForm.get('endTime').invalid">Please enter a end time.</mat-error>
+          <mat-error *ngIf="createCareerfairForm.errors && createCareerfairForm.errors['invalidStartAndEndTime']">End time should be later than start time.</mat-error>
+       </div>
+        <button mat-raised-button [disabled]="createCareerfairForm.invalid" color="primary" type="submit">next</button>
       </mat-card>
   </div>
 </form>
@@ -45,40 +60,109 @@
     *ngFor="let addedCompany of addedCompanies"
     [addedCompany]="addedCompany"
   ></app-added-company>
-  <form (submit)="onAddCompaniesAndTalks()">
-    <mat-card>
+  <mat-card>
+    <form (submit)="onAddNewCompany()" [formGroup]="addCompanyForm" id="addCompanyForm" #addCompany="ngForm">
       <mat-form-field>
-        <input
-          matInput
-          type="text"
-          placeholder="Company name">
+        <mat-select
+          formControlName="companyId"
+          placeholder="Select an existing company">
+          <mat-option [value]="0">not existing</mat-option>
+          <mat-option *ngFor="let company of existingCompanies" [value]="company._id">{{ company.name }}</mat-option>
+        </mat-select>
       </mat-form-field>
-      <mat-error *ngIf="true">Please enter a company name.</mat-error>
+      <div *ngIf="addCompanyForm.get('companyId').value === 0">
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="name"
+            placeholder="Company name">
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="address"
+            placeholder="Company address">
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="website"
+            placeholder="Website">
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            maxlength="300"
+            matInput
+            #description
+            type="text"
+            formControlName="description"
+            placeholder="Description">
+            <mat-hint align="end">{{description.value.length}} / 300</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="majors"
+            placeholder="Relative majors, separated by commas.">
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            type="email"
+            formControlName="email"
+            placeholder="Contact email">
+        </mat-form-field>
+      </div>
+    </form>
+    <hr>
       Talks:
       <mat-list class="list-group">
         <mat-list-item class="list-group-item" *ngFor="let addedTalk of addedTalks; let i = index">
           Talk {{i}}: from {{addedTalk.startTime}} to {{addedTalk.endTime}}
         </mat-list-item>
       </mat-list>
-      <div class="row add-talk">
-        <div class="col-2 add-talk-item">New Talk</div>
-        <mat-form-field class="col-4">
-          <input
-            matInput
-            type="time"
-            placeholder="Start Time">
-        </mat-form-field>
-        <mat-form-field class="col-4">
-          <input
-            matInput
-            type="time"
-            placeholder="End Time">
-        </mat-form-field>
-        <button class="add-talk-item" mat-raised-button color="primary" type="button">Add talk</button>
-      </div>
-      <button mat-raised-button type="button" color="primary">Add company</button>
+
+      <form class="add-talk" [formGroup]="addTalkForm" (submit)="onAddNewTalk()">
+        <div class="row">
+          <div class="col-10">
+            <div class="row">
+              <div class="col-3 add-talk-item">New Talk</div>
+              <mat-form-field class="col-4">
+                <input
+                  matInput
+                  type="time"
+                  formControlName="startTime"
+                  placeholder="Start Time">
+              </mat-form-field>
+              <mat-form-field class="col-4">
+                <input
+                  matInput
+                  type="time"
+                  formControlName="endTime"
+                  placeholder="End Time">
+              </mat-form-field>
+            </div>
+            <mat-form-field>
+              <input
+              matInput
+              type="text"
+              formControlName="location"
+              placeholder="Location">
+            </mat-form-field>
+          </div>
+          <button [disabled]="addTalkForm.invalid" class="add-talk-item" mat-raised-button color="primary" type="submit">Add talk</button>
+        </div>
+        <mat-error *ngIf="addTalkForm.errors && addTalkForm.errors['invalidStartAndEndTime']">End time should be later than start time.</mat-error>
+        <mat-error *ngIf="addTalkForm.errors && addTalkForm.errors['invalidTalkTime']">Talk time is out of career fair time.</mat-error>
+      </form>
+
+      <button mat-raised-button type="submit" color="primary" form="addCompanyForm">Add company</button>
     </mat-card>
-    <button mat-raised-button type="submit" color="primary">Submit</button>
-  </form>
+    <button mat-raised-button type="button" color="primary" (click)="onAddCompaniesAndTalks()">Submit</button>
+
 </div>
 

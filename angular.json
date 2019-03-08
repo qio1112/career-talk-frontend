@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "career-fair-app": {
+    "career-talk": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/career-fair-app",
+            "outputPath": "dist/career-talk",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -51,18 +51,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "career-fair-app:build"
+            "browserTarget": "career-talk:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "career-fair-app:build:production"
+              "browserTarget": "career-talk:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "career-fair-app:build"
+            "browserTarget": "career-talk:build"
           }
         },
         "test": {
@@ -97,7 +97,7 @@
         }
       }
     },
-    "career-fair-app-e2e": {
+    "career-talk-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -105,11 +105,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "career-fair-app:serve"
+            "devServerTarget": "career-talk:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "career-fair-app:serve:production"
+              "devServerTarget": "career-talk:serve:production"
             }
           }
         },
@@ -125,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "career-fair-app"
+  "defaultProject": "career-talk"
 }

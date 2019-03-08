@@ -46,4 +46,8 @@ export class CompanyService {
     }>(this.serverUrl + '/careerfairs/' + cfId + '/companies/' + companyId + '/talks');
   }
 
+  // create multiple companies
+  createCompanies(companies: {name: string, address: string, website: string, description: string, email: string, majors: string}[]){
+
+  }
 }
