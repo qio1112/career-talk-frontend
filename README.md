@@ -1,7 +1,7 @@
 *Yipeng Zhao, Personal Project*
 # CareerTalk Angular Front-end
 ## Project Overview
-The career talk is web application for college student users to get the information about career fairs happening in their schools and schedule talks of some chosen companies to reduce the time span of waiting in lines. Colleges can create a school user to upload new career fairs with information of companies and talks.
+The career talk is a web application for college student users to get the information about career fairs happening in their schools and schedule talks of some chosen companies to reduce the time span of waiting in lines. Colleges can create school users to upload new career fairs with information of companies and talks.
 Career talk is a MEAN stack RESTful application. This is the Angular front-end of the application. Click the [link](https://github.com/qio1112/career-talk-backend) to check the back-end.
 
 ## Getting started
@@ -15,12 +15,13 @@ export class Urls {
 ```
 Change the url if needed.
 
-The career talk uses Google Maps api for displaying the location of career fairs. Therefore a Google Maps api-key is needed. Set the api-key at `src/app/api-keys.ts`:
+The career talk uses Google Maps api for displaying the location of career fairs. Therefore a Google Maps api-key is needed. Create a file called `api-keys.ts` at `src/app/api-keys.ts`:
 ```
 export class ApiKeys {
   public static get googleMapsApiKey(): string { return '<YOUR API_KEY>'; }
 }
 ```
+Change `'<YOUR API_KEY>'` to your api-key to start the application.
 
 ## Introduction to files
 ### Components
