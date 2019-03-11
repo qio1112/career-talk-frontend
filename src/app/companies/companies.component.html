@@ -17,7 +17,8 @@
     </agm-map>
   </div>
   <div class="col-9 companies-container">
-    <h5>Companies:</h5>
+    <h4>Companies:</h4>
+    <h5 *ngIf="companies.length === 0">Sorry, no company found.</h5>
     <app-company-item
       *ngFor="let company of companies"
       [company]="company"

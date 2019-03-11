@@ -16,7 +16,7 @@ export class CreateCareerfairComponent implements OnInit {
   // stage of creation, stage 0 is creating careerfair, stage 1 is adding companies and talks.
   createStage = 0;
   // companies which has been added to front-end
-  addedCompanies = <{name: string, talks: {startTime: Date, endTime: Date}[]}[]>[];
+  addedCompanies = <{name: string, talks: {startTime: Date, endTime: Date, location: string}[]}[]>[];
   // existing companies in DB for selection
   existingCompanies: Company[];
 
@@ -47,6 +47,8 @@ export class CreateCareerfairComponent implements OnInit {
     // ]});
     // this.addedTalks.push({startTime: new Date('2019-07-01T07:00:00'), endTime: new Date('2019-07-01T07:20:00')});
     // this.addedTalks.push({startTime: new Date('2019-07-01T07:00:00'), endTime: new Date('2019-07-01T07:20:00')});
+
+    // get existing companies from db
 
     // init forms
     this.createCareerfairForm = new FormGroup({
@@ -96,7 +98,11 @@ export class CreateCareerfairComponent implements OnInit {
 
   // add new company to memory
   onAddNewCompany() {
-    console.log('add new company');
+    this.addedCompanies.push({
+      name: this.addCompanyForm.get('name').value,
+      talks: this.addedTalks
+    });
+    this.addedTalks = [];
   }
 
   // add new talk to the new company in memory

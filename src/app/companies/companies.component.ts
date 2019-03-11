@@ -28,7 +28,8 @@ export class CompaniesComponent implements OnInit {
 
   constructor(
     private companyService: CompanyService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -39,6 +40,11 @@ export class CompaniesComponent implements OnInit {
         this.companies = companiesInfo.companies;
         this.careerfair = companiesInfo.careerfair;
         console.log(this.careerfair);
+      }, error => {
+        if (error.status === 402) {
+          alert('The career fair does not exist.');
+          this.router.navigate(['/careerfairs']);
+        }
       });
   }
 
@@ -57,6 +63,11 @@ export class CompaniesComponent implements OnInit {
     this.companyService.findCompaniesByCareerfairId(this.careerfairId, this.createParams())
       .subscribe(companiesInfo => {
         this.companies = companiesInfo.companies;
+      }, error => {
+        if (error.status === 402) {
+          alert('The career fair does not exist.');
+          this.router.navigate(['/careerfairs']);
+        }
       });
   }
 

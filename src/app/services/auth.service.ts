@@ -66,6 +66,12 @@ export class AuthService {
       .subscribe(res => {
         console.log(res);
         this.router.navigate(['/login']);
+      }, error => {
+        if (error.status === 422) {
+          alert('Wrong user type');
+        } else if (error.status === 500) {
+          alert('Something wrong with the server happened, please try again later.');
+        }
       });
   }
 
@@ -86,12 +92,18 @@ export class AuthService {
     }).subscribe(res => {
       console.log(res);
       this.router.navigate(['/login']);
+    }, error => {
+      if (error.status === 422) {
+        alert('Wrong user type');
+      } else if (error.status === 500) {
+        alert('Something wrong with the server happened, please try again later.');
+      }
     })
   }
 
   // POST request to send login info to server
   loginUser(email: string, password: string) {
-    this.http
+    return this.http
       .post<{message: string, token: string, expiresIn: string, userId: string, userType: string}>
         (this.homeUrl + '/login', {email: email, password: password})
       .subscribe(res => {
@@ -106,6 +118,11 @@ export class AuthService {
           this.authStatusListener.next(true); // logged in
           this.isAuthenticated = true;
           this.router.navigate(['/']);
+        }
+      }, error => {
+        console.log(error);
+        if (error.status === 401) {
+          this.authStatusListener.next(false);
         }
       });
   }

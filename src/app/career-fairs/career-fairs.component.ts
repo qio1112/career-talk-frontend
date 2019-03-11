@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CareerfairService } from '../services/careerfair.service';
 import { CareerFair } from '../common/careerfair.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-career-fairs',
@@ -12,7 +13,8 @@ export class CareerFairsComponent implements OnInit {
   careerfairs: CareerFair[];
 
   constructor(
-    private cfService: CareerfairService
+    private cfService: CareerfairService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -20,6 +22,12 @@ export class CareerFairsComponent implements OnInit {
     this.cfService.findCareerfairs()
       .subscribe(careerfairsInfo => {
         this.careerfairs = careerfairsInfo.careerfairs;
+      }, error => {
+        if (error.status === 401) {
+          this.router.navigate(['/login']);
+        } else {
+          console.log(error);
+        }
       });
   }
 }

@@ -160,7 +160,7 @@
         <mat-error *ngIf="addTalkForm.errors && addTalkForm.errors['invalidTalkTime']">Talk time is out of career fair time.</mat-error>
       </form>
 
-      <button mat-raised-button type="submit" color="primary" form="addCompanyForm">Add company</button>
+      <button mat-raised-button [disabled]="addCompanyForm.invalid" type="submit" color="primary" form="addCompanyForm">Add company</button>
     </mat-card>
     <button mat-raised-button type="button" color="primary" (click)="onAddCompaniesAndTalks()">Submit</button>
 
