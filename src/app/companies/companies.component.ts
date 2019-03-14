@@ -13,7 +13,8 @@ import { HttpParams } from '@angular/common/http';
 export class CompaniesComponent implements OnInit {
 
   private careerfairId: string;
-  companies: Company[];
+  hasCoordinates = false;
+  companies = <Company[]> [];
   careerfair: CareerFair;
   private filterStatus = {
     sponsor: false,
@@ -39,6 +40,7 @@ export class CompaniesComponent implements OnInit {
       .subscribe(companiesInfo => {
         this.companies = companiesInfo.companies;
         this.careerfair = companiesInfo.careerfair;
+        this.hasCoordinates = this.careerfair.latitude !== null && this.careerfair.longitude !== null;
         console.log(this.careerfair);
       }, error => {
         if (error.status === 402) {

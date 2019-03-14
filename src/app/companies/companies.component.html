@@ -5,7 +5,7 @@
       [companies]="companies"
       (filterChange)="onFilterChange($event)"
       ></app-company-filter>
-    <agm-map
+    <agm-map *ngIf="hasCoordinates"
       [latitude]="careerfair?.latitude"
       [longitude]="careerfair?.longitude"
       [zoom] = "16"

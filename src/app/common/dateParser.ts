@@ -1,7 +1,7 @@
 export class DateParser {
   months = ['Jan.', 'Feb.', 'Mar.', 'Apr.', 'May', 'June', 'July', 'Aug.', 'Sept.', 'Oct.', 'Nov.', 'Dec.'];
 
-  static parseDate(d: Date): {date: string, time: string} {
+  static parseDate(d: Date): {date: string, time: string, timeString: string} {
     const days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const day = days[d.getDay()];
     const date = d.getDate().toString();
@@ -19,7 +19,8 @@ export class DateParser {
     const hour = hourNumber.toString();
     return {
       date: month + '/' + date + '/' + year + ', ' + day,
-      time: hour + ': ' + minute + ' ' + amOrPm
+      time: hour + ': ' + minute + ' ' + amOrPm,
+      timeString: month + '/' + date + '/' + year + ', ' + day + ' ' + hour + ': ' + minute + ' ' + amOrPm
     };
   }
 }

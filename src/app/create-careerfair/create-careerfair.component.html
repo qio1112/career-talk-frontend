@@ -48,6 +48,16 @@
           <mat-error *ngIf="createCareerfairForm.get('startTime').dirty && createCareerfairForm.get('startTime').invalid">Please enter a start time.</mat-error>
           <mat-error *ngIf="createCareerfairForm.get('endTime').dirty && createCareerfairForm.get('endTime').invalid">Please enter a end time.</mat-error>
           <mat-error *ngIf="createCareerfairForm.errors && createCareerfairForm.errors['invalidStartAndEndTime']">End time should be later than start time.</mat-error>
+          <mat-form-field>
+            <input
+              maxlength="300"
+              matInput
+              #description
+              type="text"
+              formControlName="description"
+              placeholder="Description">
+              <mat-hint align="end">{{description.value.length}} / 300</mat-hint>
+          </mat-form-field>
        </div>
         <button mat-raised-button [disabled]="createCareerfairForm.invalid" color="primary" type="submit">next</button>
       </mat-card>
@@ -57,7 +67,11 @@
 <div *ngIf="createStage === 1">
   <h4>Add companies</h4>
   <app-added-company
-    *ngFor="let addedCompany of addedCompanies"
+    *ngFor="let addedCompany of addedExistingCompanies"
+    [addedCompany]="addedCompany"
+  ></app-added-company>
+  <app-added-company
+    *ngFor="let addedCompany of addedNewCompanies"
     [addedCompany]="addedCompany"
   ></app-added-company>
   <mat-card>
@@ -121,7 +135,7 @@
     <hr>
       Talks:
       <mat-list class="list-group">
-        <mat-list-item class="list-group-item" *ngFor="let addedTalk of addedTalks; let i = index">
+        <mat-list-item class="list-group-item" *ngFor="let addedTalk of addedTalksToShow; let i = index">
           Talk {{i}}: from {{addedTalk.startTime}} to {{addedTalk.endTime}}
         </mat-list-item>
       </mat-list>

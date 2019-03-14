@@ -46,8 +46,63 @@ export class CompanyService {
     }>(this.serverUrl + '/careerfairs/' + cfId + '/companies/' + companyId + '/talks');
   }
 
-  // create multiple companies
-  createCompanies(companies: {name: string, address: string, website: string, description: string, email: string, majors: string}[]){
-
+  // get all existing companies
+  getAllExistingCompanies() {
+    return this.http.get<{
+      companies: Company[],
+      message: string
+    }>(this.serverUrl + '/companies');
   }
+
+  // create multiple talks to certain career fair
+  createNewCompaniesWithTalks(
+    careerfairId: string,
+    companies: {
+      name: string,
+      address: string,
+      website: string,
+      description: string,
+      majors: string,
+      email: string,
+      talks: {startTime: any, endTime: any, location: string}[]
+    }[] ) {
+      if (!companies.length) {
+        return 'empty array';
+      }
+      companies.forEach(c => {
+        c.talks.forEach(talk => {
+          talk.startTime = talk.startTime.getTime();
+          talk.endTime = talk.endTime.getTime();
+        });
+      });
+      return this.http.post<{message: string}>(
+        this.serverUrl + '/newcompanies', {
+          careerfairId: careerfairId,
+          companies: companies
+        }
+      );
+    }
+
+  // add existing companies to career fair, add related talks
+  addTalksWithExistingCompanies(
+    careerfairId: string,
+    companies: {
+      _id: string,
+      talks: {startTime: any, endTime: any, location: string}[]
+    }[] ) {
+      if (!companies.length) {
+        return 'empty string';
+      }
+      companies.forEach(c => {
+        c.talks.forEach(talk => {
+          talk.startTime = talk.startTime.getTime();
+          talk.endTime = talk.endTime.getTime();
+        });
+      });
+      return this.http.post<{message: string}>(this.serverUrl + '/existingcompanies', {
+          careerfairId: careerfairId,
+          companies: companies
+        }
+      )
+    }
 }
