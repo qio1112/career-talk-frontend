@@ -14,6 +14,8 @@ import { DateParser } from '../common/dateParser';
   styleUrls: ['./create-careerfair.component.css']
 })
 export class CreateCareerfairComponent implements OnInit {
+  @ViewChild('addCompany') companyForm: NgForm;
+  @ViewChild('addTalk') talkForm: NgForm;
   // min date of new career fair which is today
   minDate = new Date(Date.now());
   // stage of creation, stage 0 is creating careerfair, stage 1 is adding companies and talks.
@@ -141,6 +143,7 @@ export class CreateCareerfairComponent implements OnInit {
       });
     }
     this.addCompanyForm.reset();
+    this.companyForm.resetForm();
     this.addedTalks = [];
     this.addedTalksToShow = [];
   }
@@ -157,6 +160,7 @@ export class CreateCareerfairComponent implements OnInit {
       location: location
     });
     this.addTalkForm.reset();
+    this.talkForm.resetForm();
   }
 
   // http request for creating new companies and talks.
